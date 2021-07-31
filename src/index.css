@@ -5,9 +5,50 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size:50px
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+img {
+  display: none;
+}
+
+img.open {
+  max-width:80%;
+  max-height: 80%;
+  display: block;
+}
+
+.deck {
+  max-width:800px;
+  min-width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #cc1002 0%, #cccd7e 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgb(46 61 73 / 50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 3em;
+}
+
+.deck .card {
+  margin: 5px;
+  height: 125px;
+  width: 125px;
+  background: rgb(46, 55, 73);
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgb(46 61 73 / 50%);
 }
