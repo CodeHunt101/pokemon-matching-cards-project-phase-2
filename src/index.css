@@ -38,7 +38,7 @@ img.open {
   margin: 0 0 3em;
 }
 
-.deck .card {
+.deck button.card {
   margin: 5px;
   height: 125px;
   width: 125px;

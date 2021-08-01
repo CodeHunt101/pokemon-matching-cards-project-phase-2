@@ -6,4 +6,11 @@ export default function shuffleArray(array) {
   return array
 }
 
-shuffleArray([1,2,3,4,5])
+export function getPokemonIdFromImgUrl(e) {
+  if (e.target.className === 'card') {
+    return e.target.firstElementChild.src.replace(/[^0-9]/g, '')
+  } else {
+    return e.target.src.replace(/[^0-9]/g, '')
+  }
+}
+

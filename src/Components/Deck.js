@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Card from './Card'
-import shuffle from '../HelperFunctions'
+import shuffle, {getPokemonIdFromImgUrl} from '../HelperFunctions'
 
 export default function Deck() {
   const [pokemons, setPokemons] = useState([])
-  const [isCardOpen, setIsCardOpen] = useState(new Array(30).fill(false))
-
+  function generatePokemons(pokemons) {
+    const array = shuffle(pokemons).map((pokemon,idx)=> idx<10 && pokemon)
+    const cloneArray = shuffle([...array])
+    const combinedArray = shuffle(array.concat(cloneArray).filter(pokemon=> pokemon))
+    setPokemons(combinedArray)
+  }
   useEffect(()=> {
     const fetchPokemons = () => {
       const pokemonUrls = []
@@ -26,23 +30,47 @@ export default function Deck() {
     }
    fetchPokemons()
   },[])
-
-
-  const handleClick = (index) => {
+  
+  const [isCardOpen, setIsCardOpen] = useState(new Array(20).fill(false))
+  const [pair, setPair] = useState([])
+  const [counter, setCounter] = useState(0)
+  function handleClick (e,index) {
+    setCounter(counter + 1)
     const copyOfIsCardOpen = [...isCardOpen]
     copyOfIsCardOpen[index]=true
     setIsCardOpen(copyOfIsCardOpen)
+    const copyOfPair = [...pair]
+    setPair(copyOfPair.concat(index))
+    appendClickedCard(e)
+    
   }
-
-  const generatePokemons = (pokemons) => {
-    const array = shuffle(pokemons).map((pokemon,idx)=> idx<15 && pokemon)
-    const cloneArray = shuffle([...array])
-    const combinedArray = shuffle(array.concat(cloneArray).filter(pokemon=> pokemon))
-    setPokemons(combinedArray)
+  const [matchingPairs, setMatchingPairs] = useState([])
+  function appendClickedCard(e) {
+    const copyOfMatchingPairs = [...matchingPairs]
+    const pokemonId = getPokemonIdFromImgUrl(e)
+    setMatchingPairs(copyOfMatchingPairs.concat(pokemonId))
   }
-
+  useEffect(()=> {
+    const matchCards = () => {
+      const copyOfMatchingPairs = [...matchingPairs]
+      const copyOfIsCardOpen = [...isCardOpen]
+      if (matchingPairs.length >= 2 && matchingPairs.length % 2 === 0) {
+        setTimeout(()=>setCounter(0),500)
+        console.log(pair.length === 2, pair[pair.length-1]===pair[pair.length-2], matchingPairs[matchingPairs.length-1] !== matchingPairs[matchingPairs.length-2])
+        if ((pair.length >= 2 && pair[pair.length-1]===pair[pair.length-2]) || matchingPairs[matchingPairs.length-1] !== matchingPairs[matchingPairs.length-2] ) {
+          setMatchingPairs(copyOfMatchingPairs.slice(0,-2))
+          copyOfIsCardOpen[pair[pair.length-1]] = false
+          copyOfIsCardOpen[pair[pair.length-2]] = false
+          setTimeout(()=>setIsCardOpen(copyOfIsCardOpen),500)
+          setPair(pair.slice(0,-2))
+        } 
+      }
+    }
+    matchCards()
+  },[matchingPairs, isCardOpen, pair])
+  
   const renderPokemons = () => {
-    return pokemons.map((pokemon, idx) => <Card key={idx} index={idx} pokemon={pokemon} handleClick={handleClick} isCardOpen={isCardOpen[idx]}/>)
+    return pokemons.map((pokemon, idx) => <Card key={idx} index={idx} pokemon={pokemon} handleClick={handleClick} isCardOpen={isCardOpen[idx]} counter={counter}/>)
   }
 
   return (
