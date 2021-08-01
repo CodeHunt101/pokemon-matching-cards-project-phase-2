@@ -1,14 +1,19 @@
 import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import GameManager from "./Components/GameManager";
+import Header from "./Components/Header";
 import Menu from "./Components/Menu";
-import { Header, Container } from 'semantic-ui-react'
 
 export default function App() {
   return (
     <Container>
-      <Header as='h3'>Pokemon Memory Cards Game</Header>
-      <GameManager />
-      <Menu />
+      <Row>
+        <Col>
+          <Header />
+          <Menu />
+          <GameManager />
+        </Col>
+      </Row>
     </Container>
   )
 }

@@ -7,13 +7,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size:50px
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-img {
+a#contact-me {
+  color:red;
+  text-decoration:red;
+  margin-right: 5px;
+}
+a#contact-me:hover {
+  color: brown;
+  display: block;
+}
+h1 {
+  text-align: center;
+  display:block
+}
+
+span {
+  text-align: center;
+}
+
+img.hidden {
   display: none;
 }
 
@@ -21,6 +38,12 @@ img.open {
   max-width:80%;
   max-height: 80%;
   display: block;
+  animation: magnify 0.15s
+  /* animation: rotation 0.1s; */
+  /* -webkit-animation: fadeIn 0.3s;
+  -moz-animation: fadeIn 0.3s;
+  -o-animation: fadeIn 0.3s;
+  -ms-animation: fadeIn 0.3s; */
 }
 
 .deck {
@@ -35,14 +58,14 @@ img.open {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 0 0 3em;
+  margin: auto;
 }
 
 .deck button.card {
   margin: 5px;
   height: 125px;
   width: 125px;
-  background: rgb(46, 55, 73);
+  background: rgb(24, 46, 90);
   font-size: 0;
   color: #ffffff;
   border-radius: 8px;
@@ -51,4 +74,40 @@ img.open {
   justify-content: center;
   align-items: center;
   box-shadow: 5px 2px 20px 0 rgb(46 61 73 / 50%);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+@keyframes magnify {
+  from {
+    width: 0%
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes reduce {
+  from {
+    width: 100%
+  }
+  to {
+    width: 0%;
+  }
 }
