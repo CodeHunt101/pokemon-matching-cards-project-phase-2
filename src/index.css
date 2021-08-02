@@ -15,7 +15,8 @@ code {
 a#contact-me {
   color:red;
   text-decoration:red;
-  margin-right: 5px;
+  display:block;
+  text-align: right;
 }
 a#contact-me:hover {
   color: brown;
@@ -25,9 +26,19 @@ h1 {
   text-align: center;
   display:block
 }
+div.header img {
+  margin: auto;
+  display: block;
+}
 
-span {
-  text-align: center;
+
+div .game-stats {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+i {
+  cursor: pointer;
 }
 
 img.hidden {

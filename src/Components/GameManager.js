@@ -4,40 +4,42 @@ import shuffle, {getPokemonIdFromImgUrl} from '../HelperFunctions'
 import GameStats from "./GameStats";
 
 export default function GameManager() {
-  const [pokemons, setPokemons] = useState([])
-  function generatePokemons(pokemons) {
-    const arr = shuffle(pokemons).map((pokemon,idx)=> idx<10 && pokemon)
-    const arrClone = shuffle([...arr])
-    const combinedArr = shuffle(arr.concat(arrClone).filter(pokemon=> pokemon))
-    setPokemons(combinedArr)
-  }
-  useEffect(()=> {
-    function fetchPokemons() {
-      const pokemonUrls = []
-      const pokemonImages = fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`)
-        .then(resp => resp.json())
-        .then(pokemons => {
-          pokemons.results.forEach(pokemon => {
-            pokemonUrls.push(pokemon.url)
-          })
-          return pokemonUrls.map(url=>
-           fetch(url)
-            .then(resp=>resp.json())
-            .then(pokemonUrl => pokemonUrl.sprites.other.dream_world.front_default)
-          )
-        })
-      Promise.resolve(pokemonImages)
-      .then((pokemonImages)=>Promise.all(pokemonImages)
-        .then((pokemonImages)=>generatePokemons(pokemonImages)))
-    }
-   fetchPokemons()
-  },[])
   
-  const [isCardOpen, setIsCardOpen] = useState(new Array(20).fill(false))
+  const [pokemons, setPokemons] = useState([])
+  const [deckSize] = useState(20)
+  useEffect(()=> {
+   fetchPokemons()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+  function fetchPokemons() {
+    const pokemonUrls = []
+    const pokemonImages = fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`)
+      .then(resp => resp.json())
+      .then(pokemons => {
+        pokemons.results.forEach(pokemon => {
+          pokemonUrls.push(pokemon.url)
+        })
+        return pokemonUrls.map(url=>
+         fetch(url)
+          .then(resp=>resp.json())
+          .then(pokemonUrl => pokemonUrl.sprites.other.dream_world.front_default)
+        )
+      })
+    Promise.resolve(pokemonImages)
+    .then((pokemonImages)=>Promise.all(pokemonImages)
+      .then((pokemonImages)=>generatePokemons(pokemonImages)))
+  }
+  function generatePokemons(pokemonImages) {
+    const arr = shuffle(pokemonImages).map((pokemonImg,idx)=> idx<deckSize/2 && pokemonImg)
+    const arrClone = shuffle([...arr])
+    const combinedArrs = shuffle(arr.concat(arrClone).filter(pokemonImg=> pokemonImg))
+    setPokemons(combinedArrs)
+  }
+
+  const [isCardOpen, setIsCardOpen] = useState(new Array(deckSize).fill(false))
   const [pairIndexes, setPairIndexes] = useState([])
   const [moves, setMoves] = useState(0)
   const [disableCardIndicator, setDisableCardIndicator] = useState(0)
-  
   function handleClick (e,index) {
     setMoves(moves + 0.5)
     setDisableCardIndicator(disableCardIndicator + 1)
@@ -47,6 +49,7 @@ export default function GameManager() {
     setPairIndexes(pairIndexes.concat(index))
     appendClickedCard(e)
   }
+  
   const [matchingPairs, setMatchingPairs] = useState([])
   function appendClickedCard(e) {
     setMatchingPairs(matchingPairs.concat(getPokemonIdFromImgUrl(e)))
@@ -70,10 +73,17 @@ export default function GameManager() {
     matchCards()
   },[matchingPairs, isCardOpen, pairIndexes, disableCardIndicator])
   
-  
+  function restartGame() {
+    setIsCardOpen(new Array(deckSize).fill(false))
+    setPairIndexes([])
+    setMoves(0)
+    setDisableCardIndicator(0)
+    setMatchingPairs([])
+    fetchPokemons()
+  }
   return (
     <>
-      <GameStats moves={moves}/>
+      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame}/>
       <Deck pokemons={pokemons} 
             handleClick={handleClick} 
             isCardOpen={isCardOpen} 

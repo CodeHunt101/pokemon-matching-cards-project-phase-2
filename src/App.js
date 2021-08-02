@@ -9,8 +9,8 @@ export default function App() {
     <Container>
       <Row>
         <Col>
-          <Header />
           <Menu />
+          <Header />
           <GameManager />
         </Col>
       </Row>
