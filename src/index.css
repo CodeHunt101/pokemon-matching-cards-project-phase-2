@@ -93,7 +93,10 @@ img.open {
   align-items: center;
   box-shadow: 5px 2px 20px 0 rgb(46 61 73 / 50%);
 }
-
+div.average-rating {
+  text-align: center;
+  margin: 5%;
+}
 div.ratings-container {
   display: flex;
   align-content: center;

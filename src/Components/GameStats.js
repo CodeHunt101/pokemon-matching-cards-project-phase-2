@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}) {
+export default function GameStats({moves, isCardOpen, restartGame}) {
   const [isResultsModalShown, setIsResultsModalShown] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
@@ -82,6 +82,7 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}
                 <option value="3">Three</option>
                 <option value="2">Two</option>
                 <option value="1">One</option>
+                <option value="0">Zero</option>
               </Form.Select>
               <br/>
               <Form.Control type="text" placeholder="Comments..." name="comments" value={form.comments} onChange={handleChange}/>
