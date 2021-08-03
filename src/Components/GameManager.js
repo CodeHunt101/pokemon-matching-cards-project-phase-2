@@ -3,7 +3,7 @@ import Deck from './Deck'
 import shuffle, {getPokemonIdFromImgUrl} from '../HelperFunctions'
 import GameStats from "./GameStats";
 
-export default function GameManager() {
+export default function GameManager({fetchRatings}) {
   
   const [pokemons, setPokemons] = useState([])
   const [deckSize] = useState(20)
@@ -30,9 +30,9 @@ export default function GameManager() {
       .then((pokemonImages)=>generatePokemons(pokemonImages)))
   }
   function generatePokemons(pokemonImages) {
-    const arr = shuffle(pokemonImages).map((pokemonImg,idx)=> idx<deckSize/2 && pokemonImg)
-    const arrClone = shuffle([...arr])
-    const combinedArrs = shuffle(arr.concat(arrClone).filter(pokemonImg=> pokemonImg))
+    const arr = shuffle(pokemonImages).map((pokemonImg,idx)=> idx<deckSize/2 && pokemonImg).filter(pokemonImg=> pokemonImg)
+    const arrClone = [...arr]
+    const combinedArrs = shuffle(arr.concat(arrClone))
     setPokemons(combinedArrs)
   }
 
@@ -83,7 +83,7 @@ export default function GameManager() {
   }
   return (
     <>
-      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame}/>
+      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame} fetchRatings={fetchRatings}/>
       <Deck pokemons={pokemons} 
             handleClick={handleClick} 
             isCardOpen={isCardOpen} 

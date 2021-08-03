@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+div.container .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 a#contact-me {
   color:red;
   text-decoration:red;
@@ -61,7 +68,7 @@ img.open {
   max-width:800px;
   min-width: 660px;
   min-height: 680px;
-  background: linear-gradient(160deg, #cc1002 0%, #cccd7e 100%);
+  background: linear-gradient(135deg, #ffcb05 0%, #2a75bb 100%);
   padding: 32px;
   border-radius: 10px;
   box-shadow: 12px 15px 20px 0 rgb(46 61 73 / 50%);
@@ -85,6 +92,13 @@ img.open {
   justify-content: center;
   align-items: center;
   box-shadow: 5px 2px 20px 0 rgb(46 61 73 / 50%);
+}
+
+div.ratings-container {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 @keyframes fadeIn {
