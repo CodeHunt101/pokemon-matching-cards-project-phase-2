@@ -3,7 +3,6 @@ import { Card as BtpCard } from 'react-bootstrap'
 
 export default function Rating({rating}) {
   const solidStar = <i class="fas fa-star"></i>
-  console.log(typeof solidStar)
   const regularStar = <i class="far fa-star"></i>
   function generateStarts() {
     switch (rating.rating) {
