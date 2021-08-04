@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function GameStats({moves, isCardOpen, restartGame}) {
+export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}) {
   const [isResultsModalShown, setIsResultsModalShown] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
@@ -37,7 +37,7 @@ export default function GameStats({moves, isCardOpen, restartGame}) {
         comments: form.comments,
         moves: moves
       })
-    })
+    }).then(fetchRatings)
     setForm({
       firstName: '',
       lastName: '',

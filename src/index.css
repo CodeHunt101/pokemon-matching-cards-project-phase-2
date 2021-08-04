@@ -12,16 +12,30 @@ code {
     monospace;
 }
 
-div.container .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+/* div.container .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
   display: flex;
   flex-wrap: inherit;
   align-items: center;
   justify-content: flex-start;
-}
+} */
 
+div.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+div.navbar-nav a {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: white;
+  text-decoration: white;
+}
+div.navbar-nav a:hover {
+  color: #ffcb05;
+  display: block;
+}
 a#contact-me {
   color:red;
-  text-decoration:red;
+  text-decoration: red;
   display:block;
   text-align: right;
 }
@@ -37,14 +51,12 @@ div.header img {
   margin: auto;
   display: block;
 }
-
-
 div .game-stats {
   display: flex;
   justify-content: space-evenly;
 }
 
-i {
+.fa-retweet {
   cursor: pointer;
 }
 
@@ -102,6 +114,20 @@ div.ratings-container {
   align-content: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+div.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px
+}
+div.email, div.phone {
+  margin: 10px
+}
+div.email span, div.phone span {
+  margin: 10px;
+  font-size: larger;
+  font-style: italic;
 }
 
 @keyframes fadeIn {

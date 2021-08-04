@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 export default function Menu() {
@@ -7,11 +8,13 @@ export default function Menu() {
     
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/"><i className="fas fa-gamepad"></i></Navbar.Brand>
+          {/* <Navbar.Brand href="/"><i className="fas fa-gamepad fa-2x"></i></Navbar.Brand> */}
           <Nav className="Navbar">
-            <Nav.Link href="/about"><b>About</b></Nav.Link>
-            <Nav.Link href="/top-scores"><b>Top Scorers</b></Nav.Link>
-            <Nav.Link href="/ratings"><b>Ratings</b></Nav.Link>
+            {/* <Nav.Link href="/about"><b>About</b></Nav.Link>
+            <Nav.Link href="/ratings"><b>Ratings</b></Nav.Link> */}
+            <Link to="/"><i className="fas fa-gamepad fa-3x"></i></Link>
+            <Link to="/ratings"><b>Ratings</b></Link>
+            <Link to="/contact"><b>Contact</b></Link>
           </Nav>
         </Container>
       </Navbar>

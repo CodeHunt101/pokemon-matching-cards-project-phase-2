@@ -3,24 +3,18 @@ import { Container, Row, Col } from "react-bootstrap";
 import GameManager from "./Components/GameManager";
 import Header from "./Components/Header";
 import Menu from "./Components/Menu";
+import RatingsContainer from "./Components/RatingsContainer";
+import Contact from "./Components/Contact";
 import { 
   Switch, 
   BrowserRouter as Router, 
   Route } from "react-router-dom";
-import RatingsContainer from "./Components/RatingsContainer";
+import initialRatings from "./InitialRatings";
 
 export default function App() {
-  const [ratings, setRatings] = useState([{
-    id: 0,
-    firstName: "Harold",
-    lastName: "Torres",
-    rating: 5,
-    comments: "I like pokemons!",
-    moves: 25
-  }])
+  const [ratings, setRatings] = useState(initialRatings)
   
   function fetchRatings() {
-    // const copyOfRatings = [...ratings]
     fetch('http://localhost:3001/results')
       .then(resp => resp.json())
       .then(results => {
@@ -42,17 +36,13 @@ export default function App() {
             <Header />
             <Switch>
               <Route exact path="/">
-                <GameManager fetchRatings={fetchRatings} />
-              </Route>
-              <Route exact path="/about">
-                <h1>ABOUT</h1>
-              </Route>
-              <Route exact path="/top-scores">
-                <h1>TOP SCORERS</h1>
+                <GameManager fetchRatings={fetchRatings}/>
               </Route>
               <Route exact path="/ratings">
-                <h1>RATINGS</h1>
                 <RatingsContainer ratings={ratings}/>
+              </Route>
+              <Route exact path="/contact">
+                <Contact />
               </Route>
             </Switch>
           </Col>
