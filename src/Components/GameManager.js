@@ -87,7 +87,6 @@ export default function GameManager({fetchRatings}) {
       <Deck pokemons={pokemons} 
             handleClick={handleClick} 
             isCardOpen={isCardOpen} 
-            moves={moves}
             disableCardIndicator={disableCardIndicator}/>
     </>
   )
