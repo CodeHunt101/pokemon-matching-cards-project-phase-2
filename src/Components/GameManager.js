@@ -3,10 +3,10 @@ import Deck from './Deck'
 import shuffle, {getPokemonIdFromImgUrl} from '../HelperFunctions'
 import GameStats from "./GameStats";
 
-export default function GameManager({fetchRatings}) {
+export default function GameManager({fetchReviews}) {
   
   const [pokemons, setPokemons] = useState([])
-  const [deckSize] = useState(20)
+  const [deckSize] = useState(2)
   useEffect(()=> {
    fetchPokemons()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +83,7 @@ export default function GameManager({fetchRatings}) {
   }
   return (
     <>
-      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame} fetchRatings={fetchRatings}/>
+      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame} fetchReviews={fetchReviews}/>
       <Deck pokemons={pokemons} 
             handleClick={handleClick} 
             isCardOpen={isCardOpen} 

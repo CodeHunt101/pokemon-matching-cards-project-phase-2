@@ -1,11 +1,11 @@
 import React from 'react'
-import Rating from './Rating'
+import Review from './Review'
 import { bigStars } from '../HelperFunctions'
 
-export default function RatingsContainer({ratings}) {
+export default function ReviewsContainer({reviews}) {
   function calculateAvgRatingV2() {
-    const ratingsSum = ratings.map(rating => rating.rating).reduce((acc, curr) => acc+curr)
-    const ratingsAvg = Math.round(ratingsSum/ratings.length*2)/2
+    const ratingsSum = reviews.map(review => review.rating).reduce((acc, curr) => acc+curr)
+    const ratingsAvg = Math.round(ratingsSum/reviews.length*2)/2
     
     switch (ratingsAvg) {
       case 0 : return bigStars.zero
@@ -23,8 +23,8 @@ export default function RatingsContainer({ratings}) {
   } 
   
   // function calculateAvgRating() {
-  //   const ratingsSum = ratings.map(rating => rating.rating).reduce((acc, curr) => acc+curr)
-  //   const ratingsAvg = Math.round(ratingsSum/ratings.length*2)/2
+  //   const ratingsSum = reviews.map(review => review.rating).reduce((acc, curr) => acc+curr)
+  //   const ratingsAvg = Math.round(ratingsSum/reviews.length*2)/2
   //   const solidStar = <i className="fas fa-star fa-3x"></i>
   //   const regularStar = <i className="far fa-star fa-3x"></i>
   //   const halfStar = <i className="fas fa-star-half-alt fa-3x"></i>
@@ -46,12 +46,12 @@ export default function RatingsContainer({ratings}) {
   
   return (
     <>
-      <h1><b>Ratings</b></h1>
+      <h1><b>Reviews</b></h1>
       <div className="average-rating">
         {calculateAvgRatingV2()}
       </div>
-      <div className="ratings-container">
-        {ratings.map((rating, idx) => <Rating key={idx} rating={rating}/>)}
+      <div className="reviews-container">
+        {reviews.map((review, idx) => <Review key={idx} review={review}/>)}
       </div>
     </>
   )

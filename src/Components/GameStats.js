@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}) {
+export default function GameStats({moves, isCardOpen, restartGame, fetchReviews}) {
   const [isResultsModalShown, setIsResultsModalShown] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
@@ -25,7 +25,7 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}
   function handleSubmit(e) {
     e.preventDefault()
     setIsResultsModalShown(false)
-    fetch('http://localhost:4000/ratings',{
+    fetch('http://localhost:4000/reviews',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,11 +33,12 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}
       body: JSON.stringify({
         firstName: form.firstName,
         lastName: form.lastName,
-        rating: parseInt(form.rating),
+        rating: form.rating !== '' ? parseInt(form.rating) : 5,
         comments: form.comments,
-        moves: moves
+        moves: moves,
+        datePosted: Date.now()
       })
-    }).then(fetchRatings)
+    }).then(fetchReviews)
     setForm({
       firstName: '',
       lastName: '',

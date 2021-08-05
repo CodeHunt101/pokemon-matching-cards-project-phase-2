@@ -2,10 +2,9 @@ import React from 'react'
 import { Card as BtpCard } from 'react-bootstrap'
 import { smallStars } from '../HelperFunctions'
 
-export default function Rating({rating}) {
-
+export default function Review({review}) {
   function generateStartsV2() {
-    switch (rating.rating) {
+    switch (review.rating) {
       case 0 : return smallStars.zero
       case 1 : return smallStars.one
       case 2 : return smallStars.two
@@ -18,7 +17,7 @@ export default function Rating({rating}) {
   // function generateStarts() {
   //   const solidStar = <i className="fas fa-star"></i>
   //   const regularStar = <i className="far fa-star"></i>
-  //   switch (rating.rating) {
+  //   switch (review.rating) {
   //     case 0 : return new Array(5).fill(regularStar)
   //     case 1 : return new Array(1).fill(solidStar).concat(new Array(4).fill(regularStar)) 
   //     case 2 : return new Array(2).fill(solidStar).concat(new Array(3).fill(regularStar)) 
@@ -36,16 +35,20 @@ export default function Rating({rating}) {
         style={{ width: '18rem' }}
         className="mb-2"
       >
-        <BtpCard.Header><i className="fas fa-child"></i>{' '}<b>{rating.firstName + ' ' + rating.lastName}</b></BtpCard.Header>
+        <BtpCard.Header><i className="fas fa-child"></i>{' '}<b>{review.firstName + ' ' + review.lastName}
+          <br/>
+         {new Date(review.datePosted).toLocaleString()}</b></BtpCard.Header>
         <BtpCard.Body>
           <BtpCard.Title>{generateStartsV2()}</BtpCard.Title>
           <BtpCard.Text>
-            {rating.comments} 
+            {review.comments} 
             <br/>
-            <strong>Moves: {rating.moves}</strong>
+            <strong>Moves: {review.moves}</strong>
           </BtpCard.Text>
         </BtpCard.Body>
       </BtpCard>
     </>
   )
 }
+
+//new Date(Date.now()).toLocaleString()

@@ -11,9 +11,9 @@ export default function Menu() {
           {/* <Navbar.Brand href="/"><i className="fas fa-gamepad fa-2x"></i></Navbar.Brand> */}
           <Nav className="Navbar">
             {/* <Nav.Link href="/about"><b>About</b></Nav.Link>
-            <Nav.Link href="/ratings"><b>Ratings</b></Nav.Link> */}
+            <Nav.Link href="/reviews"><b>Reviews</b></Nav.Link> */}
             <Link to="/"><i className="fas fa-gamepad fa-3x"></i></Link>
-            <Link to="/ratings"><b>Ratings</b></Link>
+            <Link to="/reviews"><b>Reviews</b></Link>
             <Link to="/contact"><b>Contact</b></Link>
           </Nav>
         </Container>
