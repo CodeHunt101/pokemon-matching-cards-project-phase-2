@@ -25,7 +25,7 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}
   function handleSubmit(e) {
     e.preventDefault()
     setIsResultsModalShown(false)
-    fetch('http://localhost:3001/results',{
+    fetch('http://localhost:4000/ratings',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -73,17 +73,19 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchRatings}
           {isFormModalShown &&
           <Modal.Body>
             <Form onSubmit={handleSubmit}>
-              <Form.Control type="text" placeholder="Enter first name" name="firstName" value={form.firstName} onChange={handleChange}/>
+              <Form.Control required type="text" placeholder="Enter first name" name="firstName" value={form.firstName} onChange={handleChange}/>
               <Form.Control type="text" placeholder="Enter last name" name="lastName" value={form.lastName} onChange={handleChange}/>
-              <Form.Select name="rating" onChange={handleChange}>
-                <option>Rate me!</option>
-                <option value="5">Five</option>
-                <option value="4">Four</option>
-                <option value="3">Three</option>
-                <option value="2">Two</option>
-                <option value="1">One</option>
-                <option value="0">Zero</option>
-              </Form.Select>
+              <Form.Group controlId="formSelect">
+              <Form.Label>Rate me:</Form.Label>
+                <Form.Select required name="rating" onChange={handleChange}>
+                    <option value="5">Five</option>
+                    <option value="4">Four</option>
+                    <option value="3">Three</option>
+                    <option value="2">Two</option>
+                    <option value="1">One</option>
+                    <option value="0">Zero</option>
+                  </Form.Select>
+            </Form.Group>
               <br/>
               <Form.Control type="text" placeholder="Comments..." name="comments" value={form.comments} onChange={handleChange}/>
               <br/>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Row, Button, Col, Alert } from 'react-bootstrap'
+import { Form, Row, Button, Col } from 'react-bootstrap'
 
 export default function Contact() {
   const [contactForm, setContactForm] = useState({
@@ -12,7 +12,7 @@ export default function Contact() {
   
   function handleSubmit(e) {
     e.preventDefault()
-    fetch('http://localhost:3001/contact',{
+    fetch('http://localhost:4000/contact',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,6 +25,8 @@ export default function Contact() {
         message: contactForm.message
       })
     })
+    .then(()=>alert(`Thank you ${contactForm.firstName}, I will contact you soon!`))
+    .catch(()=>alert(`Thank you ${contactForm.firstName}, I will contact you soon!`))
     setContactForm({
       firstName: "",
       lastName: "",
@@ -75,7 +77,7 @@ export default function Contact() {
 
           <Form.Group as={Col} controlId="formGridPhone">
             <Form.Label>Phone number</Form.Label>
-            <Form.Control required type="tel" placeholder="Enter phone number" name="phone"  onChange={handleChange} value={contactForm.phone}/>
+            <Form.Control type="tel" placeholder="Enter phone number" name="phone"  onChange={handleChange} value={contactForm.phone}/>
           </Form.Group>
         </Row>
         
@@ -87,9 +89,6 @@ export default function Contact() {
           Submit
         </Button>
       </Form>
-      <Alert variant='success'>
-        This is a alert—check it out!
-      </Alert>
     </div>
   )
 

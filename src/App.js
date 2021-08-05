@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import GameManager from "./Components/GameManager";
 import Header from "./Components/Header";
 import Menu from "./Components/Menu";
@@ -15,11 +15,12 @@ export default function App() {
   const [ratings, setRatings] = useState(initialRatings)
   
   function fetchRatings() {
-    fetch('http://localhost:3001/results')
+    fetch('http://localhost:4000/ratings')
       .then(resp => resp.json())
-      .then(results => {
-        setRatings(ratings.concat(results))
+      .then(ratings => {
+        setRatings(ratings.concat(ratings))
       })
+      .catch(()=>alert("It seems like you're either using GitHub pages or have cloned this repo, but you haven't run json-server --watch  db.json -p 3001. New reviews won't be posted, and contact form submissions won't be stored in the mock JSON server database!\nHowever, you're still able to play the Pokemon Matching Cards!"))
   }
 
   useEffect(()=>{
@@ -30,8 +31,6 @@ export default function App() {
   return (
     <Router>
       <Container>
-        <Row>
-          <Col>
             <Menu />
             <Header />
             <Switch>
@@ -45,8 +44,6 @@ export default function App() {
                 <Contact />
               </Route>
             </Switch>
-          </Col>
-        </Row>
       </Container>
     </Router>
   )

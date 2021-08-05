@@ -3,9 +3,6 @@ import { Card as BtpCard } from 'react-bootstrap'
 import { smallStars } from '../HelperFunctions'
 
 export default function Rating({rating}) {
-  
-  
-
 
   function generateStartsV2() {
     switch (rating.rating) {
