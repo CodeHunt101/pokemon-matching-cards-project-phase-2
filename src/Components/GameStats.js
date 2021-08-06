@@ -50,9 +50,15 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchReviews}
   
   return (
     <div className='game-stats'>
-      <i className="fas fa-retweet" onClick={()=>{restartGame();setIsResultsModalShown(true);setIsFormModalShown(false)}}></i>
-      <span><h5>Moves: {Math.floor(moves)}</h5></span>
-
+      <i className="fas fa-retweet fa-2x" onClick={()=>{restartGame();setIsResultsModalShown(true);setIsFormModalShown(false)}}></i>
+      {/* <span>
+        <Form>
+          <Form.Check onChange={null} type='radio' label='Easy'/>
+          <Form.Check onChange={null} type='radio' label='Medium'/>
+          <Form.Check onChange={null} type='radio' label='Hard'/>
+        </Form>
+      </span> */}
+      <span><h5><strong>Moves: {Math.floor(moves)}</strong></h5></span>
       {isResultsModalShown && 
         <Modal centered show={isResultsModalShown && showModal()}>
           <Modal.Header closeButton onClick={()=>{setIsResultsModalShown(false);setIsFormModalShown(false)}}>
@@ -79,13 +85,13 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchReviews}
               <Form.Group controlId="formSelect">
               <Form.Label>Rate me:</Form.Label>
                 <Form.Select required name="rating" onChange={handleChange}>
-                    <option value="5">Five</option>
-                    <option value="4">Four</option>
-                    <option value="3">Three</option>
-                    <option value="2">Two</option>
-                    <option value="1">One</option>
-                    <option value="0">Zero</option>
-                  </Form.Select>
+                  <option value="5">Five</option>
+                  <option value="4">Four</option>
+                  <option value="3">Three</option>
+                  <option value="2">Two</option>
+                  <option value="1">One</option>
+                  <option value="0">Zero</option>
+                </Form.Select>
             </Form.Group>
               <br/>
               <Form.Control type="text" placeholder="Comments..." name="comments" value={form.comments} onChange={handleChange}/>

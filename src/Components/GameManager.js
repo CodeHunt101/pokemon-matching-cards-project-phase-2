@@ -6,7 +6,7 @@ import GameStats from "./GameStats";
 export default function GameManager({fetchReviews}) {
   
   const [pokemons, setPokemons] = useState([])
-  const [deckSize] = useState(2)
+  const [deckSize] = useState(20)
   useEffect(()=> {
    fetchPokemons()
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import GameManager from "./Components/GameManager";
 import Header from "./Components/Header";
 import Menu from "./Components/Menu";
-import ReviewsContainer from "./Components/ReviewsContainer";
+import ReviewsManager from "./Components/ReviewsManager";
 import Contact from "./Components/Contact";
 import { 
   Switch, 
@@ -40,7 +40,7 @@ export default function App() {
                 <GameManager fetchReviews={fetchReviews}/>
               </Route>
               <Route exact path="/reviews">
-                <ReviewsContainer reviews={reviews}/>
+                <ReviewsManager reviews={reviews}/>
               </Route>
               <Route exact path="/contact">
                 <Contact />
