@@ -6,11 +6,12 @@ import GameStats from "./GameStats";
 export default function GameManager({fetchReviews}) {
   
   const [pokemons, setPokemons] = useState([])
-  const [deckSize] = useState(20)
+  const [deckSize, setDeckSize] = useState(20)
   useEffect(()=> {
    fetchPokemons()
+   setIsCardOpen(new Array(deckSize).fill(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[deckSize])
   function fetchPokemons() {
     const pokemonUrls = []
     const pokemonImages = fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`)
@@ -81,13 +82,37 @@ export default function GameManager({fetchReviews}) {
     setMatchingPairs([])
     fetchPokemons()
   }
+
+  function handleGameDifficulty(e) {
+    switch (e.target.value) {
+      case 'easy' : setDeckSize(10)
+      break
+      case 'medium' : setDeckSize(20)
+      break
+      case 'hard' : setDeckSize(30)
+      break
+      default: setDeckSize(20)
+    }
+    setPairIndexes([])
+    setMoves(0)
+    setDisableCardIndicator(0)
+    setMatchingPairs([])
+  }
+
   return (
     <>
-      <GameStats moves={moves} isCardOpen={isCardOpen} restartGame={restartGame} fetchReviews={fetchReviews}/>
-      <Deck pokemons={pokemons} 
-            handleClick={handleClick} 
-            isCardOpen={isCardOpen} 
-            disableCardIndicator={disableCardIndicator}/>
+      <GameStats 
+        moves={moves} 
+        isCardOpen={isCardOpen} 
+        restartGame={restartGame} 
+        fetchReviews={fetchReviews} 
+        handleGameDifficulty={handleGameDifficulty}
+        deckSize={deckSize}/>
+      <Deck 
+        pokemons={pokemons} 
+        handleClick={handleClick} 
+        isCardOpen={isCardOpen} 
+        disableCardIndicator={disableCardIndicator}/>
     </>
   )
 }

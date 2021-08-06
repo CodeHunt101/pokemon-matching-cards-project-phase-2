@@ -12,7 +12,7 @@ export default function ReviewsFilter({handleCheckboxChange, handleStartsFilter}
           type='checkbox'
           label='Sort by first review'  
         />
-        <FloatingLabel label='Filter by starts'>
+        <FloatingLabel label='Filter by stars'>
           <Form.Select name="rating" onChange={handleStartsFilter}>
             <option value='All'>All</option>
             <option value="5">Five</option>

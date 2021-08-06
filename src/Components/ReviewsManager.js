@@ -5,9 +5,9 @@ import { bigStars } from '../HelperFunctions'
 
 export default function ReviewsManager({reviews}) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
-  const [starsFilter, setStartsFilter] = useState('All')
+  const [starsFilter, setStarsFilter] = useState('All')
   
-  function calculateAvgRatingV2() {
+  function calculateAvgRating() {
     const ratingsSum = reviews.map(review => review.rating).reduce((acc, curr) => acc+curr)
     const ratingsAvg = Math.round(ratingsSum/reviews.length*2)/2
     
@@ -25,7 +25,48 @@ export default function ReviewsManager({reviews}) {
       default : return bigStars.five
     }
   } 
+
+  function handleCheckboxChange(e) {
+    if (e.target.checked) {
+      setIsCheckboxChecked(true)
+    } else setIsCheckboxChecked(false)
+  }
+
+  function handleStartsFilter(e) {
+    if (e.target.value === null || e.target.value === 'All') {
+      setStarsFilter('All')
+    } else {
+      setStarsFilter(parseInt(e.target.value))
+    }
+  }
+
+  function renderReviews() {
+    if (isCheckboxChecked && starsFilter === 'All') {
+      return reviews.map((review, idx) => <Review key={idx} review={review}/>)
+    } else if (isCheckboxChecked && starsFilter !== 'All') {
+      return reviews.filter(review => review.rating === starsFilter)
+        .map((review, idx) => <Review key={idx} review={review}/>)
+    } else if (!isCheckboxChecked && starsFilter === 'All') {
+      return reviews.map((review, idx) => <Review key={idx} review={review}/>).reverse()
+    } else if (!isCheckboxChecked && starsFilter !== 'All')  {
+      return reviews.filter(review => review.rating === starsFilter).map((review, idx) => <Review key={idx} review={review}/>).reverse()
+    }
+  }
   
+  return (
+    <>
+      <h1><b>Reviews</b></h1>
+      {<ReviewsFilter handleCheckboxChange={handleCheckboxChange} handleStartsFilter={handleStartsFilter}/>}
+      <div className="average-rating">
+        {calculateAvgRating()}
+      </div>
+      <div className="reviews-container">
+        {renderReviews()}
+      </div>
+    </>
+  )
+}
+
   // function calculateAvgRating() {
   //   const ratingsSum = reviews.map(review => review.rating).reduce((acc, curr) => acc+curr)
   //   const ratingsAvg = Math.round(ratingsSum/reviews.length*2)/2
@@ -47,49 +88,3 @@ export default function ReviewsManager({reviews}) {
   //     default : return new Array(5).fill(solidStar)
   //   }
   // }
-
-  function handleCheckboxChange(e) {
-    if (e.target.checked) {
-      setIsCheckboxChecked(true)
-    } else setIsCheckboxChecked(false)
-  }
-
-  function handleStartsFilter(e) {
-    if (e.target.value === null || e.target.value === 'All') {
-      setStartsFilter('All')
-    } else {
-      setStartsFilter(parseInt(e.target.value))
-    }
-  }
-
-  // function renderReviews() {
-  //   return reviews.map((review, idx) => <Review key={idx} review={review}/>)
-  // }
-
-  function renderReviews() {
-    if (isCheckboxChecked && starsFilter === 'All') {
-      return reviews.map((review, idx) => <Review key={idx} review={review}/>)
-    } else if (isCheckboxChecked && starsFilter !== 'All') {
-      return reviews.filter(review => review.rating === starsFilter)
-        .map((review, idx) => <Review key={idx} review={review}/>)
-    } else if (!isCheckboxChecked && starsFilter === 'All') {
-      return reviews.map((review, idx) => <Review key={idx} review={review}/>).reverse()
-    } else if (!isCheckboxChecked && starsFilter !== 'All')  {
-      return reviews.filter(review => review.rating === starsFilter).map((review, idx) => <Review key={idx} review={review}/>).reverse()
-    }
-  }
-  
-  return (
-    <>
-      <h1><b>Reviews</b></h1>
-      {<ReviewsFilter handleCheckboxChange={handleCheckboxChange} handleStartsFilter={handleStartsFilter}/>}
-      <div className="average-rating">
-        {calculateAvgRatingV2()}
-      </div>
-      <div className="reviews-container">
-        {/* {isCheckboxChecked ? renderReviews() : renderReviews().reverse()} */}
-        {renderReviews()}
-      </div>
-    </>
-  )
-}

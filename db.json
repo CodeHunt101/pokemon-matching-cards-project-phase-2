@@ -5,6 +5,7 @@
       "lastName": "Watasir",
       "rating": 4,
       "comments": "",
+      "gameDifficulty": "Medium",
       "moves": 23,
       "datePosted": 1628199071351,
       "id": 9
@@ -14,6 +15,7 @@
       "lastName": "Torres",
       "rating": 5,
       "comments": "I was insane with pokemons!!!!",
+      "gameDifficulty": "Medium",
       "moves": 24,
       "datePosted": 1628199691858,
       "id": 10
@@ -23,6 +25,7 @@
       "lastName": "Castro",
       "rating": 3,
       "comments": "Love you Mew",
+      "gameDifficulty": "Hard",
       "moves": 30,
       "datePosted": 1628199762865,
       "id": 11
@@ -32,6 +35,7 @@
       "lastName": "Galvan",
       "rating": 3,
       "comments": "The movie was awesome",
+      "gameDifficulty": "Hard",
       "moves": 28,
       "datePosted": 1628199860736,
       "id": 12
@@ -39,8 +43,9 @@
     {
       "firstName": "Sindy",
       "lastName": "",
-      "rating": 2,
+      "rating": 12,
       "comments": "",
+      "gameDifficulty": "Easy",
       "moves": 45,
       "datePosted": 1628199916470,
       "id": 13
@@ -50,18 +55,10 @@
       "lastName": "",
       "rating": 3,
       "comments": "Not bad",
+      "gameDifficulty": "Hard",
       "moves": 53,
       "datePosted": 1628202182756,
       "id": 14
-    },
-    {
-      "firstName": "Alan",
-      "lastName": "Singer",
-      "rating": 4,
-      "comments": "",
-      "moves": 1,
-      "datePosted": 1628228376825,
-      "id": 15
     }
   ],
   "contact": [

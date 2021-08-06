@@ -54,6 +54,9 @@ div.header img {
 div .game-stats {
   display: flex;
   justify-content: space-evenly;
+  min-width: 660px;
+  max-width: 1000px;
+  margin: auto
 }
 
 .fa-retweet {

@@ -3,7 +3,7 @@ import { Card as BtpCard } from 'react-bootstrap'
 import { smallStars } from '../HelperFunctions'
 
 export default function Review({review}) {
-  function generateStartsV2() {
+  function generateStars() {
     switch (review.rating) {
       case 0 : return smallStars.zero
       case 1 : return smallStars.one
@@ -13,19 +13,6 @@ export default function Review({review}) {
       default : return smallStars.five
     }
   }
-  
-  // function generateStarts() {
-  //   const solidStar = <i className="fas fa-star"></i>
-  //   const regularStar = <i className="far fa-star"></i>
-  //   switch (review.rating) {
-  //     case 0 : return new Array(5).fill(regularStar)
-  //     case 1 : return new Array(1).fill(solidStar).concat(new Array(4).fill(regularStar)) 
-  //     case 2 : return new Array(2).fill(solidStar).concat(new Array(3).fill(regularStar)) 
-  //     case 3 : return new Array(3).fill(solidStar).concat(new Array(2).fill(regularStar)) 
-  //     case 4 : return new Array(4).fill(solidStar).concat(new Array(1).fill(regularStar)) 
-  //     default : return new Array(5).fill(solidStar)
-  //   }
-  // }
 
   return (
     <>
@@ -39,9 +26,11 @@ export default function Review({review}) {
           <br/>
          {new Date(review.datePosted).toLocaleString()}</b></BtpCard.Header>
         <BtpCard.Body>
-          <BtpCard.Title>{generateStartsV2()}</BtpCard.Title>
+          <BtpCard.Title>{generateStars()}</BtpCard.Title>
           <BtpCard.Text>
             {review.comments} 
+            <br/>
+            <strong>Difficulty: {review.gameDifficulty}</strong>
             <br/>
             <strong>Moves: {review.moves}</strong>
           </BtpCard.Text>
@@ -51,4 +40,15 @@ export default function Review({review}) {
   )
 }
 
-//new Date(Date.now()).toLocaleString()
+// function generateStars() {
+  //   const solidStar = <i className="fas fa-star"></i>
+  //   const regularStar = <i className="far fa-star"></i>
+  //   switch (review.rating) {
+  //     case 0 : return new Array(5).fill(regularStar)
+  //     case 1 : return new Array(1).fill(solidStar).concat(new Array(4).fill(regularStar)) 
+  //     case 2 : return new Array(2).fill(solidStar).concat(new Array(3).fill(regularStar)) 
+  //     case 3 : return new Array(3).fill(solidStar).concat(new Array(2).fill(regularStar)) 
+  //     case 4 : return new Array(4).fill(solidStar).concat(new Array(1).fill(regularStar)) 
+  //     default : return new Array(5).fill(solidStar)
+  //   }
+  // }

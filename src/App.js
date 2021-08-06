@@ -15,11 +15,9 @@ export default function App() {
   const [reviews, setReviews] = useState(initialReviews)
   
   function fetchReviews() {
-    // setReviews(initialReviews)
     fetch('http://localhost:4000/reviews')
       .then(resp => resp.json())
       .then(jsonReviews => {
-        // const combinedReviews = jsonReviews
         setReviews(initialReviews.concat(jsonReviews))
       })
       .catch(()=>alert("It seems like you're either using GitHub pages or have cloned this repo, but you haven't run json-server --watch  db.json -p 3001. New reviews won't be posted, and contact form submissions won't be stored in the mock JSON server database!\nHowever, you're still able to play the Pokemon Matching Cards!"))
