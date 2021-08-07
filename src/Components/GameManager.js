@@ -14,21 +14,21 @@ export default function GameManager({fetchReviews}) {
   },[deckSize])
   function fetchPokemons() {
     const pokemonUrls = []
-    const pokemonImages = fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`)
       .then(resp => resp.json())
       .then(pokemons => {
         pokemons.results.forEach(pokemon => {
           pokemonUrls.push(pokemon.url)
         })
-        return pokemonUrls.map(url=>
-         fetch(url)
-          .then(resp=>resp.json())
-          .then(pokemonUrl => pokemonUrl.sprites.other.dream_world.front_default)
-        )
-      })
-    Promise.resolve(pokemonImages)
-    .then((pokemonImages)=>Promise.all(pokemonImages)
-      .then((pokemonImages)=>generatePokemons(pokemonImages)))
+        const allURLsPromise = pokemons.results.map(result => {
+          return fetch(result.url)
+            .then(resp => resp.json())
+            .then(json => json.sprites.other.dream_world.front_default)
+        })
+
+    Promise.all(allURLsPromise)
+      .then(allURLs => generatePokemons(allURLs))
+    })
   }
   function generatePokemons(pokemonImages) {
     const arr = shuffle(pokemonImages).map((pokemonImg,idx)=> idx<deckSize/2 && pokemonImg).filter(pokemonImg=> pokemonImg)
