@@ -4,7 +4,7 @@ export default function Card({pokemon, handleClick, index, isCardOpen, disableCa
 
   return (
     <button onClick={(e)=>handleClick(e,index)} 
-            disabled={disableCardIndicator===2 || isCardOpen ? true : false} className={'card'}>
+            disabled={disableCardIndicator} className={'card'}>
       <img className={isCardOpen ? 'open' : 'hidden'} src={pokemon} alt={pokemon}></img>
     </button>
   )
