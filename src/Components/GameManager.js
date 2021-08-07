@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Deck from './Deck'
 import shuffle, {getPokemonIdFromImgUrl} from '../HelperFunctions'
-import GameStats from "./GameStats";
+import GameControl from "./GameControl";
+
 
 export default function GameManager({fetchReviews}) {
-  
   const [pokemons, setPokemons] = useState([])
   const [deckSize, setDeckSize] = useState(20)
   useEffect(()=> {
@@ -38,7 +38,8 @@ export default function GameManager({fetchReviews}) {
   }
 
   const [isCardOpen, setIsCardOpen] = useState(new Array(deckSize).fill(false))
-  const [pairIndexes, setPairIndexes] = useState([])
+  const [pairOfPokeIndexes, setPairOfPokeIndexes] = useState([])
+  const [pairOfPokeIds, setPairOfPokeIds] = useState([])
   const [moves, setMoves] = useState(0)
   const [disableCardIndicator, setDisableCardIndicator] = useState(0)
   function handleClick (e,index) {
@@ -47,39 +48,42 @@ export default function GameManager({fetchReviews}) {
     const copyOfIsCardOpen = [...isCardOpen]
     copyOfIsCardOpen[index]=true
     setIsCardOpen(copyOfIsCardOpen)
-    setPairIndexes(pairIndexes.concat(index))
-    appendClickedCard(e)
-  }
-  
-  const [matchingPairs, setMatchingPairs] = useState([])
-  function appendClickedCard(e) {
-    setMatchingPairs(matchingPairs.concat(getPokemonIdFromImgUrl(e)))
+    setPairOfPokeIndexes(pairOfPokeIndexes.concat(index))
+    setPairOfPokeIds(pairOfPokeIds.concat(getPokemonIdFromImgUrl(e)))
   }
   useEffect(()=> {
     const matchCards = () => {
+      const timeOut = 500
       const copyOfIsCardOpen = [...isCardOpen]
-      if (matchingPairs.length >= 2 && matchingPairs.length % 2 === 0) {
-        setTimeout(()=>setDisableCardIndicator(0),500)
-        if ((pairIndexes.length >= 2 && 
-            pairIndexes[pairIndexes.length-1]===pairIndexes[pairIndexes.length-2]) || 
-            matchingPairs[matchingPairs.length-1] !== matchingPairs[matchingPairs.length-2] ) {
-          setMatchingPairs(matchingPairs.slice(0,-2))
-          copyOfIsCardOpen[pairIndexes[pairIndexes.length-1]] = false
-          copyOfIsCardOpen[pairIndexes[pairIndexes.length-2]] = false
-          setTimeout(()=>setIsCardOpen(copyOfIsCardOpen),500)
-          setPairIndexes(pairIndexes.slice(0,-2))
-        } 
+      /*if two cards are selected, even it's the same card clicked twice, disable all buttons from 
+      receiving clicks within the given timeout and clean up pairPokeIndexes and pairpokeIds */
+      if (pairOfPokeIndexes.length === 2) {
+        setTimeout(()=>setDisableCardIndicator(0),timeOut)
+        setPairOfPokeIndexes([])
+        setPairOfPokeIds([])
+        /* if additionally, their id's don't match, disable all buttons from receiving clicks 
+        and hide the selected cards within the given timeOut */
+        if (pairOfPokeIds[0] !== pairOfPokeIds[1]) {
+          setPairOfPokeIds([])
+          setPairOfPokeIndexes([])
+          copyOfIsCardOpen[pairOfPokeIndexes[0]] = false
+          copyOfIsCardOpen[pairOfPokeIndexes[1]] = false
+          setTimeout(()=>{
+            setDisableCardIndicator(0)
+            setIsCardOpen(copyOfIsCardOpen)
+          }, timeOut) 
+        }
       }
     }
     matchCards()
-  },[matchingPairs, isCardOpen, pairIndexes, disableCardIndicator])
+  },[pairOfPokeIds, isCardOpen, pairOfPokeIndexes, disableCardIndicator])
   
   function restartGame() {
     setIsCardOpen(new Array(deckSize).fill(false))
-    setPairIndexes([])
+    setPairOfPokeIndexes([])
     setMoves(0)
     setDisableCardIndicator(0)
-    setMatchingPairs([])
+    setPairOfPokeIds([])
     fetchPokemons()
   }
 
@@ -93,15 +97,15 @@ export default function GameManager({fetchReviews}) {
       break
       default: setDeckSize(20)
     }
-    setPairIndexes([])
+    setPairOfPokeIndexes([])
     setMoves(0)
     setDisableCardIndicator(0)
-    setMatchingPairs([])
+    setPairOfPokeIds([])
   }
 
   return (
     <>
-      <GameStats 
+      <GameControl 
         moves={moves} 
         isCardOpen={isCardOpen} 
         restartGame={restartGame} 

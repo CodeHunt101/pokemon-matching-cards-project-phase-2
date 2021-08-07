@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size:50px
+  font-size:50px;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -68,8 +68,8 @@ img.hidden {
 }
 
 img.open {
-  max-width:80%;
-  max-height: 80%;
+  max-width:90%;
+  max-height: 90%;
   display: block;
   animation: magnify 0.15s
   /* animation: rotation 0.1s; */
@@ -80,18 +80,18 @@ img.open {
 }
 
 .deck {
+  margin: auto;
   max-width:800px;
   min-width: 660px;
   min-height: 680px;
+  padding: 28px;
   background: linear-gradient(135deg, #ffcb05 0%, #2a75bb 100%);
-  padding: 32px;
-  border-radius: 10px;
-  box-shadow: 12px 15px 20px 0 rgb(46 61 73 / 50%);
+  border-radius: 15px;
+  box-shadow: 10px 13px 18px 5px rgb(48 62 75 / 40%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: auto;
 }
 
 .deck button.card {
@@ -101,7 +101,7 @@ img.open {
   background: rgb(24, 46, 90);
   font-size: 0;
   color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   justify-content: center;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function GameStats({moves, isCardOpen, restartGame, fetchReviews, handleGameDifficulty, deckSize}) {
+export default function GameControl({moves, isCardOpen, restartGame, fetchReviews, handleGameDifficulty, deckSize}) {
   const [isResultsModalReady, setIsResultsModalReady] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
@@ -62,11 +62,11 @@ export default function GameStats({moves, isCardOpen, restartGame, fetchReviews,
     <div className='game-stats'>
       <i className="fas fa-retweet fa-2x" onClick={()=>{restartGame();setIsResultsModalReady(true);setIsFormModalShown(false)}}></i>
       <span>
-        <Form onChange={(e)=>{handleGameDifficulty(e);setIsResultsModalReady(true)}}>
+        <div onChange={(e)=>{handleGameDifficulty(e);setIsResultsModalReady(true)}}>
           <Form.Check inline name='difficulty' type='radio' label='Easy' value='easy'/>
           <Form.Check inline name='difficulty' type='radio' label='Medium' value='medium' defaultChecked/>
           <Form.Check inline name='difficulty' type='radio' label='Hard' value='hard'/>
-        </Form>
+        </div>
       </span>
       <span><h5><strong>Moves: {Math.floor(moves)}</strong></h5></span>
       {isResultsModalReady && 
