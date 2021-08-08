@@ -119,8 +119,6 @@ export default function GameManager({ fetchReviews }) {
     })
   }
 
-  const disableCardIndicator = inProgress.length === 2 && inProgress[0].pokemonID !== inProgress[1].pokemonID
-
   return (
     <>
       <GameStats
@@ -134,7 +132,7 @@ export default function GameManager({ fetchReviews }) {
         pokemons={pokemons}
         handleClick={handleClick}
         isCardOpen={isCardOpen}
-        disableCardIndicator={disableCardIndicator} />
+        />
     </>
   )
 }

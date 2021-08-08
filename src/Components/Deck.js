@@ -2,7 +2,7 @@ import React from "react";
 import Card from './Card'
 import { Spinner } from "react-bootstrap";
 
-export default function Deck({pokemons,handleClick,isCardOpen,disableCardIndicator}) {
+export default function Deck({pokemons,handleClick,isCardOpen}) {
   const renderCards = () => (
     pokemons.map((pokemon, idx) => (
       <Card key={idx} 
@@ -10,7 +10,7 @@ export default function Deck({pokemons,handleClick,isCardOpen,disableCardIndicat
             pokemon={pokemon} 
             handleClick={handleClick} 
             isCardOpen={isCardOpen[idx]} 
-            disableCardIndicator={disableCardIndicator}/>))
+            />))
   )
   return (
     <ul className={'deck'}>

@@ -1,10 +1,9 @@
 import React from "react";
 
-export default function Card({pokemon, handleClick, index, isCardOpen, disableCardIndicator}) {
+export default function Card({pokemon, handleClick, index, isCardOpen}) {
 
   return (
-    <button onClick={(e)=>handleClick(e,index)} 
-            disabled={disableCardIndicator} className={'card'}>
+    <button onClick={(e)=>handleClick(e,index)} className={'card'}>
       <img className={isCardOpen ? 'open' : 'hidden'} src={pokemon} alt={pokemon}></img>
     </button>
   )
