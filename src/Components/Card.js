@@ -10,7 +10,7 @@ export default function Card({
   return (
     <button
       onClick={(e) => handleClick(e, index)}
-      disabled={disableCardIndicator === 2 || isCardOpen ? true : false}
+      disabled={disableCardIndicator === 2 || isCardOpen}
       className={"card"}
     >
       <img

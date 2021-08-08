@@ -24,7 +24,6 @@ export default function GameManager({ fetchReviews }) {
             .then((resp) => resp.json())
             .then((json) => json.sprites.other.dream_world.front_default)
         })
-
         Promise.all(allURLsPromise).then((allURLs) => generatePokemons(allURLs))
       })
   }
@@ -38,8 +37,10 @@ export default function GameManager({ fetchReviews }) {
   }
 
   const [isCardOpen, setIsCardOpen] = useState(new Array(deckSize).fill(false))
-  const [pairOfPokeIndexes, setPairOfPokeIndexes] = useState([])
-  const [pairOfPokeIds, setPairOfPokeIds] = useState([])
+  const [newPairOfPokesClicked, setNewPokesClicked] = useState({
+    pokeIndexes: [],
+    pokeIds: [],
+  })
   const [moves, setMoves] = useState(0)
   const [disableCardIndicator, setDisableCardIndicator] = useState(0)
   function handleClick(e, index) {
@@ -48,26 +49,28 @@ export default function GameManager({ fetchReviews }) {
     const copyOfIsCardOpen = [...isCardOpen]
     copyOfIsCardOpen[index] = true
     setIsCardOpen(copyOfIsCardOpen)
-    setPairOfPokeIndexes(pairOfPokeIndexes.concat(index))
-    setPairOfPokeIds(pairOfPokeIds.concat(getPokemonIdFromImgUrl(e)))
+    setNewPokesClicked({
+      pokeIndexes: newPairOfPokesClicked.pokeIndexes.concat(index),
+      pokeIds: newPairOfPokesClicked.pokeIds.concat(getPokemonIdFromImgUrl(e)),
+    })
   }
   useEffect(() => {
     const matchCards = () => {
       const timeOut = 500
       const copyOfIsCardOpen = [...isCardOpen]
-      /*if two cards are selected, even it's the same card clicked twice, disable all buttons from 
+      /*if two cards are selected, even if it's the same card clicked twice, disable all cards from 
       receiving clicks within the given timeout and clean up pairPokeIndexes and pairpokeIds */
-      if (pairOfPokeIndexes.length === 2) {
+      if (newPairOfPokesClicked.pokeIndexes.length === 2) {
         setTimeout(() => setDisableCardIndicator(0), timeOut)
-        setPairOfPokeIndexes([])
-        setPairOfPokeIds([])
-        /* if additionally, their id's don't match, disable all buttons from receiving clicks 
+        setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
+        /* if additionally, their id's don't match, disable all cards from receiving clicks 
         and hide the selected cards within the given timeOut */
-        if (pairOfPokeIds[0] !== pairOfPokeIds[1]) {
-          setPairOfPokeIds([])
-          setPairOfPokeIndexes([])
-          copyOfIsCardOpen[pairOfPokeIndexes[0]] = false
-          copyOfIsCardOpen[pairOfPokeIndexes[1]] = false
+        if (
+          newPairOfPokesClicked.pokeIds[0] !== newPairOfPokesClicked.pokeIds[1]
+        ) {
+          setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
+          copyOfIsCardOpen[newPairOfPokesClicked.pokeIndexes[0]] = false
+          copyOfIsCardOpen[newPairOfPokesClicked.pokeIndexes[1]] = false
           setTimeout(() => {
             setDisableCardIndicator(0)
             setIsCardOpen(copyOfIsCardOpen)
@@ -76,14 +79,13 @@ export default function GameManager({ fetchReviews }) {
       }
     }
     matchCards()
-  }, [pairOfPokeIds, isCardOpen, pairOfPokeIndexes, disableCardIndicator])
+  }, [newPairOfPokesClicked, isCardOpen, disableCardIndicator])
 
   function restartGame() {
     setIsCardOpen(new Array(deckSize).fill(false))
-    setPairOfPokeIndexes([])
+    setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
     setMoves(0)
     setDisableCardIndicator(0)
-    setPairOfPokeIds([])
     fetchPokemons()
   }
 
@@ -101,10 +103,9 @@ export default function GameManager({ fetchReviews }) {
       default:
         setDeckSize(20)
     }
-    setPairOfPokeIndexes([])
+    setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
     setMoves(0)
     setDisableCardIndicator(0)
-    setPairOfPokeIds([])
   }
 
   return (
