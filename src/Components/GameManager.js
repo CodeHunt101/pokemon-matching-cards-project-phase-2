@@ -64,8 +64,8 @@ export default function GameManager({ fetchReviews }) {
       if (prevState.inProgress.length === 0) {
         return {
           ...prevState,
-          moves: moves + 0.5,
-          isCardOpen: isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
+          moves: prevState.moves + 0.5,
+          isCardOpen: prevState.isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
           inProgress: [ newlyClicked ],
         }
       }
@@ -77,7 +77,7 @@ export default function GameManager({ fetchReviews }) {
         setTimeout(() => {
           setState({
             ...prevState,
-            isCardOpen: isCardOpen.map((isOpen, idx) => idx === prevState.inProgress[0].index || idx === newlyClicked.index ? false : isOpen),
+            isCardOpen: prevState.isCardOpen.map((isOpen, idx) => idx === prevState.inProgress[0].index || idx === newlyClicked.index ? false : isOpen),
             inProgress: [],
           })
         }, PENALTY_SECS * 1000)
@@ -85,7 +85,7 @@ export default function GameManager({ fetchReviews }) {
 
       return {
         ...prevState,
-        moves: moves + 0.5,
+        moves: prevState.moves + 0.5,
         isCardOpen: isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
         inProgress: newInProgress,
       }
