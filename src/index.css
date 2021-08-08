@@ -1,23 +1,19 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size:50px;
+  font-size: 1rem;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-/* div.container .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
-  display: flex;
-  flex-wrap: inherit;
-  align-items: center;
-  justify-content: flex-start;
-} */
+div#root div.container {
+  display: grid;
+}
 
 div.navbar-nav {
   display: flex;
@@ -34,9 +30,9 @@ div.navbar-nav a:hover {
   display: block;
 }
 a#contact-me {
-  color:red;
+  color: red;
   text-decoration: red;
-  display:block;
+  display: block;
   text-align: right;
 }
 a#contact-me:hover {
@@ -45,7 +41,7 @@ a#contact-me:hover {
 }
 h1 {
   text-align: center;
-  display:block
+  display: block;
 }
 div.header img {
   margin: auto;
@@ -56,7 +52,7 @@ div .game-stats {
   justify-content: space-evenly;
   min-width: 660px;
   max-width: 1000px;
-  margin: auto
+  margin: auto;
 }
 
 .fa-retweet {
@@ -68,20 +64,15 @@ img.hidden {
 }
 
 img.open {
-  max-width:90%;
+  max-width: 90%;
   max-height: 90%;
   display: block;
-  animation: magnify 0.15s
-  /* animation: rotation 0.1s; */
-  /* -webkit-animation: fadeIn 0.3s;
-  -moz-animation: fadeIn 0.3s;
-  -o-animation: fadeIn 0.3s;
-  -ms-animation: fadeIn 0.3s; */
+  animation: magnify 0.15s;
 }
 
 .deck {
   margin: auto;
-  max-width:800px;
+  max-width: 800px;
   min-width: 660px;
   min-height: 680px;
   padding: 28px;
@@ -99,7 +90,7 @@ img.open {
   height: 125px;
   width: 125px;
   background: rgb(24, 46, 90);
-  font-size: 0;
+  /* font-size: 0; */
   color: #ffffff;
   border-radius: 10px;
   cursor: pointer;
@@ -112,6 +103,9 @@ div.average-rating {
   text-align: center;
   margin: 5%;
 }
+div.filter-reviews div.col-2 {
+  width: 21%;
+}
 div.reviews-container {
   display: flex;
   align-content: center;
@@ -122,12 +116,14 @@ div.contact-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px
+  margin: 15px;
 }
-div.email, div.phone {
-  margin: 10px
+div.email,
+div.phone {
+  margin: 10px;
 }
-div.email span, div.phone span {
+div.email span,
+div.phone span {
   margin: 10px;
   font-size: larger;
   font-style: italic;
@@ -153,7 +149,7 @@ div.email span, div.phone span {
 
 @keyframes magnify {
   from {
-    width: 0%
+    width: 0%;
   }
   to {
     width: 100%;
@@ -162,7 +158,7 @@ div.email span, div.phone span {
 
 @keyframes reduce {
   from {
-    width: 100%
+    width: 100%;
   }
   to {
     width: 0%;

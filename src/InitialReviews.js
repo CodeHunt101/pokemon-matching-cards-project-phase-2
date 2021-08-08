@@ -6,7 +6,7 @@ const inititalReviews = [
     comments: "I like pokemons!",
     gameDifficulty: "Medium",
     moves: 27,
-    datePosted: 1624191071351
+    datePosted: 1624191071351,
   },
   {
     firstName: "Sha",
@@ -15,7 +15,7 @@ const inititalReviews = [
     comments: "Could be better",
     gameDifficulty: "Hard",
     moves: 24,
-    datePosted: 1625192071351
+    datePosted: 1625192071351,
   },
   {
     firstName: "Jae",
@@ -24,7 +24,7 @@ const inititalReviews = [
     comments: "Are pokemons real??",
     gameDifficulty: "Medium",
     moves: 25,
-    datePosted: 1626193071351
+    datePosted: 1626193071351,
   },
   {
     firstName: "Min",
@@ -33,16 +33,17 @@ const inititalReviews = [
     comments: "",
     gameDifficulty: "Hard",
     moves: 25,
-    datePosted: 1627194071351
+    datePosted: 1627194071351,
   },
   {
     firstName: "Justin",
     lastName: "",
     rating: 4,
-    comments: "I like to write long posts, and that's why my post is the longest so far.",
+    comments:
+      "I like to write long posts, and that's why my post is the longest so far.",
     gameDifficulty: "Medium",
     moves: 27,
-    datePosted: 1627295071351
+    datePosted: 1627295071351,
   },
   {
     firstName: "Thomas",
@@ -51,7 +52,7 @@ const inititalReviews = [
     comments: "How many pokemons are there?",
     gameDifficulty: "Easy",
     moves: 26,
-    datePosted: 1628196071351
+    datePosted: 1628196071351,
   },
 ]
 
