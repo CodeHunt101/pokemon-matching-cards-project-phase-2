@@ -50,7 +50,7 @@ export default function GameManager({ fetchReviews }) {
     inProgress: [],
   })
 
-  const { moves, isCardOpen, inProgress } = state
+  const { moves, isCardOpen } = state
 
   function handleClick(e, index) {
     setState((prevState) => {
@@ -61,36 +61,33 @@ export default function GameManager({ fetchReviews }) {
       }
 
       const newlyClicked = { index: index, pokemonID: getPokemonIdFromImgUrl(e) }
-      if (prevState.inProgress.length === 0) {
-        return {
-          ...prevState,
-          moves: prevState.moves + 0.5,
-          isCardOpen: prevState.isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
-          inProgress: [ newlyClicked ],
-        }
-      }
-
-      let newInProgress = []
-      if (prevState.inProgress[0].pokemonID !== newlyClicked.pokemonID) {
-        newInProgress = [...prevState.inProgress, newlyClicked]
-
-        setTimeout(() => {
-          setState({
-            ...prevState,
-            isCardOpen: prevState.isCardOpen.map((isOpen, idx) => idx === prevState.inProgress[0].index || idx === newlyClicked.index ? false : isOpen),
-            inProgress: [],
-          })
-        }, PENALTY_SECS * 1000)
-      }
 
       return {
-        ...prevState,
         moves: prevState.moves + 0.5,
-        isCardOpen: isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
-        inProgress: newInProgress,
+        isCardOpen: prevState.isCardOpen.map((isOpen, idx) => idx === index ? true : isOpen),
+        inProgress: prevState.inProgress.concat(newlyClicked),
       }
     })
   }
+
+  useEffect(() => {
+    if (state.inProgress.length === 2) {
+      if (state.inProgress[0].pokemonID !== state.inProgress[1].pokemonID) {
+        setTimeout(() => {
+          setState({
+            ...state,
+            isCardOpen: state.isCardOpen.map((isOpen, idx) => idx === state.inProgress[0].index || idx === state.inProgress[1].index ? false : isOpen),
+            inProgress: [],
+          })
+        }, PENALTY_SECS * 1000)
+      } else {
+        setState({
+          ...state,
+          inProgress: [],
+        })
+      }
+    }
+  })
 
   function restartGame() {
     setState({
