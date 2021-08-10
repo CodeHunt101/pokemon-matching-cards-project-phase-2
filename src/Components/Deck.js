@@ -19,6 +19,7 @@ export default function Deck({
         disableCardIndicator={disableCardIndicator}
       />
     ))
+
   return (
     <ul className={"deck"}>
       {renderCards().length === 0 && (
