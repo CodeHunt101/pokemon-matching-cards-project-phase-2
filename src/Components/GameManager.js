@@ -83,22 +83,15 @@ export default function GameManager({ fetchReviews }) {
   }
 
   function handleGameDifficulty(e) {
-    switch (e.target.value) {
-      case "easy":
-        setDeckSize(10)
-        break
-      case "medium":
-        setDeckSize(20)
-        break
-      case "hard":
-        setDeckSize(30)
-        break
-      default:
-        setDeckSize(20)
+    const difficulty = {
+      easy: () => setDeckSize(10),
+      medium: () => setDeckSize(20),
+      hard: () => setDeckSize(30),
     }
     setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
     setMoves(0)
     setDisableCardIndicator(0)
+    return difficulty[e.target.value]()
   }
 
   return (

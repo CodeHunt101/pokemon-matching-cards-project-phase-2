@@ -3,21 +3,15 @@ import { Card as BtpCard } from "react-bootstrap"
 import { smallStars } from "../HelperFunctions"
 
 export default function Review({ review }) {
-  function generateStars() {
-    switch (review.rating) {
-      case 0:
-        return smallStars.zero
-      case 1:
-        return smallStars.one
-      case 2:
-        return smallStars.two
-      case 3:
-        return smallStars.three
-      case 4:
-        return smallStars.four
-      default:
-        return smallStars.five
-    }
+  function generateStars(rating) {
+    return {
+      0: smallStars.zero,
+      1: smallStars.one,
+      2: smallStars.two,
+      3: smallStars.three,
+      4: smallStars.four,
+      5: smallStars.five,
+    }[rating]
   }
 
   return (
@@ -37,7 +31,7 @@ export default function Review({ review }) {
           </b>
         </BtpCard.Header>
         <BtpCard.Body>
-          <BtpCard.Title>{generateStars()}</BtpCard.Title>
+          <BtpCard.Title>{generateStars(review.rating)}</BtpCard.Title>
           <BtpCard.Text>
             {review.comments}
             <br />

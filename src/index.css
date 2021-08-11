@@ -34,10 +34,15 @@ a#contact-me {
   text-decoration: red;
   display: block;
   text-align: right;
+  margin-left: auto;
+  width: fit-content;
 }
 a#contact-me:hover {
   color: brown;
   display: block;
+  text-align: right;
+  margin-left: auto;
+  width: fit-content;
 }
 h1 {
   text-align: center;
@@ -90,7 +95,6 @@ img.open {
   height: 125px;
   width: 125px;
   background: rgb(24, 46, 90);
-  /* font-size: 0; */
   color: #ffffff;
   border-radius: 10px;
   cursor: pointer;

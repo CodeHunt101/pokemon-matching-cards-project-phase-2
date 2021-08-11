@@ -13,30 +13,19 @@ export default function ReviewsManager({ reviews }) {
       .reduce((acc, curr) => acc + curr)
     const ratingsAvg = Math.round((ratingsSum / reviews.length) * 2) / 2
 
-    switch (ratingsAvg) {
-      case 0:
-        return bigStars.zero
-      case 0.5:
-        return bigStars.halfToOne
-      case 1:
-        return bigStars.one
-      case 1.5:
-        return bigStars.halfToTwo
-      case 2:
-        return bigStars.two
-      case 2.5:
-        return bigStars.halfToThree
-      case 3:
-        return bigStars.three
-      case 3.5:
-        return bigStars.halfToFour
-      case 4:
-        return bigStars.four
-      case 4.5:
-        return bigStars.halfToFive
-      default:
-        return bigStars.five
-    }
+    return {
+      0: bigStars.zero,
+      0.5: bigStars.halfToOne,
+      1: bigStars.one,
+      1.5: bigStars.halfToTwo,
+      2: bigStars.two,
+      2.5: bigStars.halfToThree,
+      3: bigStars.three,
+      3.5: bigStars.halfToFour,
+      4: bigStars.four,
+      4.5: bigStars.halfToFive,
+      5: bigStars.five,
+    }[ratingsAvg]
   }
 
   function handleCheckboxChange(e) {
