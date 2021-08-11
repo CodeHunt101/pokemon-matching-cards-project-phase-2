@@ -21,11 +21,11 @@ export default function Deck({
     ))
 
   return (
-    <ul className={"deck"}>
+    <div className={"deck"}>
       {renderCards().length === 0 && (
         <Spinner animation="border" variant="primary" />
       )}
       {renderCards()}
-    </ul>
+    </div>
   )
 }
