@@ -11,7 +11,7 @@ export default function Card({
     <button
       onClick={(e) => handleClick(e, index)}
       disabled={disableCardIndicator === 2 || isCardOpen}
-      className={"card"}
+      className="card"
     >
       <img
         className={isCardOpen ? "open" : "hidden"}

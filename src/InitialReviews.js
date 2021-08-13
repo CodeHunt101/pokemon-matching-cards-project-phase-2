@@ -54,6 +54,15 @@ const inititalReviews = [
     moves: 26,
     datePosted: 1628196071351,
   },
+  {
+    firstName: "Shree",
+    lastName: "",
+    rating: 2,
+    comments: "How many pokemons are there?",
+    gameDifficulty: "Medium",
+    moves: 26,
+    datePosted: 1628396071351,
+  },
 ]
 
 export default inititalReviews

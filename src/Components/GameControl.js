@@ -33,16 +33,11 @@ export default function GameControl({
     e.preventDefault()
     setIsResultsModalReady(false)
     const gameDifficulty = () => {
-      switch (deckSize) {
-        case 10:
-          return "Easy"
-        case 20:
-          return "Medium"
-        case 30:
-          return "Hard"
-        default:
-          return "Medium"
-      }
+      return {
+        10: "Easy",
+        20: "Medium",
+        30: "Hard",
+      }[deckSize]
     }
     fetch("http://localhost:4000/reviews", {
       method: "POST",
@@ -77,7 +72,7 @@ export default function GameControl({
           setIsFormModalShown(false)
         }}
       ></i>
-      <span>
+      <span className="difficulty-level">
         <div
           onChange={(e) => {
             handleGameDifficulty(e)
@@ -114,7 +109,7 @@ export default function GameControl({
         </h5>
       </span>
       {isResultsModalReady && (
-        <Modal centered show={isResultsModalReady && showModal()}>
+        <Modal centered show={showModal()}>
           <Modal.Header
             closeButton
             onClick={() => {
