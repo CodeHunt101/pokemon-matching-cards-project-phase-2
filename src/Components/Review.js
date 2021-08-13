@@ -1,19 +1,8 @@
 import React from "react"
 import { Card as BtpCard } from "react-bootstrap"
-import { smallStars } from "../HelperFunctions"
+import { generateStars } from "../Helpers"
 
 export default function Review({ review }) {
-  function generateStars(rating) {
-    return {
-      0: smallStars.zero,
-      1: smallStars.one,
-      2: smallStars.two,
-      3: smallStars.three,
-      4: smallStars.four,
-      5: smallStars.five,
-    }[rating]
-  }
-
   return (
     <>
       <BtpCard
@@ -31,7 +20,7 @@ export default function Review({ review }) {
           </b>
         </BtpCard.Header>
         <BtpCard.Body>
-          <BtpCard.Title>{generateStars(review.rating)}</BtpCard.Title>
+          <BtpCard.Title>{generateStars()[review.rating]}</BtpCard.Title>
           <BtpCard.Text>
             {review.comments}
             <br />

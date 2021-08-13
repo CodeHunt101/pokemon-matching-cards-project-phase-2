@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Review from "./Review"
 import ReviewsFilter from "./ReviewsFilter"
-import { bigStars } from "../HelperFunctions"
+import { generateStars } from "../Helpers"
 
 export default function ReviewsManager({ reviews }) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
@@ -13,19 +13,7 @@ export default function ReviewsManager({ reviews }) {
       .reduce((acc, curr) => acc + curr)
     const ratingsAvg = Math.round((ratingsSum / reviews.length) * 2) / 2
 
-    return {
-      0: bigStars.zero,
-      0.5: bigStars.halfToOne,
-      1: bigStars.one,
-      1.5: bigStars.halfToTwo,
-      2: bigStars.two,
-      2.5: bigStars.halfToThree,
-      3: bigStars.three,
-      3.5: bigStars.halfToFour,
-      4: bigStars.four,
-      4.5: bigStars.halfToFive,
-      5: bigStars.five,
-    }[ratingsAvg]
+    return generateStars("fa-3x")[ratingsAvg]
   }
 
   function handleCheckboxChange(e) {

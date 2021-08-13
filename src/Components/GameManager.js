@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Deck from "./Deck"
-import shuffle, { getPokemonIdFromImgUrl } from "../HelperFunctions"
+import shuffle, { getPokemonIdFromImgUrl } from "../Helpers"
 import GameControl from "./GameControl"
 
 export default function GameManager({ fetchReviews }) {
