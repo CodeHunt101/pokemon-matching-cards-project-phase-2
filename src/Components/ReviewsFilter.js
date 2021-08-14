@@ -3,7 +3,7 @@ import { Form, Col, FloatingLabel } from "react-bootstrap"
 
 export default function ReviewsFilter({
   handleCheckboxChange,
-  handleStartsFilter,
+  handleStarsFilter,
 }) {
   return (
     <div className="filter-reviews">
@@ -15,7 +15,7 @@ export default function ReviewsFilter({
             label="Sort by oldest review"
           />
           <FloatingLabel label="Filter by stars">
-            <Form.Select name="rating" onChange={handleStartsFilter}>
+            <Form.Select name="rating" onChange={handleStarsFilter}>
               <option value="All">All</option>
               <option value="5">Five</option>
               <option value="4">Four</option>

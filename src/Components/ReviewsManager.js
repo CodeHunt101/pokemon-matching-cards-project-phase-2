@@ -22,7 +22,7 @@ export default function ReviewsManager({ reviews }) {
     } else setIsCheckboxChecked(false)
   }
 
-  function handleStartsFilter(e) {
+  function handleStarsFilter(e) {
     if (e.target.value === null || e.target.value === "All") {
       setStarsFilter("All")
     } else {
@@ -57,7 +57,7 @@ export default function ReviewsManager({ reviews }) {
       {
         <ReviewsFilter
           handleCheckboxChange={handleCheckboxChange}
-          handleStartsFilter={handleStartsFilter}
+          handleStarsFilter={handleStarsFilter}
         />
       }
       <div className="average-rating">{calculateAvgRating()}</div>
