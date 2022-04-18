@@ -14,6 +14,7 @@ export default function GameManager({ fetchReviews }) {
 
   function fetchPokemons() {
     setPokemons([])
+    // Enum a list from 1 to 151, take and shuffle the first half of the deck, clone and shuffle again, join.
     const allPokeIds = new Array(151).fill(null).map((id, idx) => idx + 1)
     const samplePokeIds = shuffle(allPokeIds).slice(0, deckSize / 2)
     const cloneSamplePokeIds = [...samplePokeIds]
@@ -39,6 +40,7 @@ export default function GameManager({ fetchReviews }) {
   const [moves, setMoves] = useState(0)
   const [disableCardIndicator, setDisableCardIndicator] = useState(0)
   function handleClick(e, index) {
+    //Set clicked card (index) to true and keep track of other states
     setMoves((prevMoves) => prevMoves + 0.5)
     setDisableCardIndicator(
       (prevDisableCardIndicator) => prevDisableCardIndicator + 1

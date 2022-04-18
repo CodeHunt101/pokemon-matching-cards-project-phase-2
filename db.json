@@ -69,6 +69,26 @@
       "moves": 13,
       "datePosted": 1628250937057,
       "id": 15
+    },
+    {
+      "firstName": "Carlos",
+      "lastName": "Martinez",
+      "rating": 3,
+      "comments": "What?",
+      "gameDifficulty": "Easy",
+      "moves": 10,
+      "datePosted": 1629188744775,
+      "id": 16
+    },
+    {
+      "firstName": "Cohort",
+      "lastName": "",
+      "rating": 3,
+      "comments": "Thunderstorm!",
+      "gameDifficulty": "Easy",
+      "moves": 9,
+      "datePosted": 1629194658907,
+      "id": 17
     }
   ],
   "contact": [
@@ -87,6 +107,22 @@
       "phone": "0401927123",
       "message": "This is a POST request test",
       "id": 2
+    },
+    {
+      "firstName": "Carlos",
+      "lastName": "Martinez",
+      "email": "cityofmelbournelibraries@mail.net",
+      "phone": "",
+      "message": "Hello",
+      "id": 3
+    },
+    {
+      "firstName": "Cohort",
+      "lastName": "",
+      "email": "cohort@mail.com",
+      "phone": "",
+      "message": "Hello",
+      "id": 4
     }
   ]
 }
