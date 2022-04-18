@@ -1,6 +1,16 @@
 import React, { useState } from "react"
 import { Modal, Button, Form } from "react-bootstrap"
 
+
+type GameControlProps = {
+  moves: number
+  isCardOpen: boolean[]
+  restartGame: () => void
+  fetchReviews: () => void
+  handleGameDifficulty: (event: React.FormEvent<HTMLDivElement>) => string
+  deckSize: string
+}
+
 export default function GameControl({
   moves,
   isCardOpen,
@@ -8,7 +18,7 @@ export default function GameControl({
   fetchReviews,
   handleGameDifficulty,
   deckSize,
-}) {
+}: GameControlProps) {
   const [isResultsModalReady, setIsResultsModalReady] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
@@ -22,14 +32,15 @@ export default function GameControl({
     return isCardOpen.find((card) => !card) === undefined ? true : false
   }
 
-  function handleFormInfo(e) {
+  function handleFormInfo(e: any)  {
+    const target = e.target as HTMLTextAreaElement
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [target.name]: target.value,
     })
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
     setIsResultsModalReady(false)
     const gameDifficulty = () => {
