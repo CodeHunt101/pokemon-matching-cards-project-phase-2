@@ -14,7 +14,7 @@ export function getPokemonIdFromImgUrl(e) {
   }
 }
 
-export function generateStars(className = null) {
+export function generateStars(className) {
   return {
     0: [...Array(5)].map((item, idx) => (
       <i key={idx} className={`far fa-star ${className}`}></i>

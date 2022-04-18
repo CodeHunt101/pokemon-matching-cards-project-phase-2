@@ -3,9 +3,21 @@ import Review from "./Review"
 import ReviewsFilter from "./ReviewsFilter"
 import { generateStars } from "../Helpers"
 
-export default function ReviewsManager({ reviews }) {
+type ReviewsManagerProps = {
+  reviews: {
+    firstName: string,
+    lastName: string,
+    rating: number,
+    comments:string,
+    gameDifficulty:string,
+    datePosted:number,
+    moves: number
+  }[]}
+
+
+export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
-  const [starsFilter, setStarsFilter] = useState("All")
+  const [starsFilter, setStarsFilter] = useState<string | number>("All")
 
   function calculateAvgRating() {
     const ratingsSum = reviews
@@ -13,16 +25,16 @@ export default function ReviewsManager({ reviews }) {
       .reduce((acc, curr) => acc + curr)
     const ratingsAvg = Math.round((ratingsSum / reviews.length) * 2) / 2
 
-    return generateStars("fa-3x")[ratingsAvg]
+    return generateStars("fa-3x")[ratingsAvg as keyof typeof generateStars]
   }
 
-  function handleCheckboxChange(e) {
+  function handleCheckboxChange(e: { target: { checked: boolean } }) {
     if (e.target.checked) {
       setIsCheckboxChecked(true)
     } else setIsCheckboxChecked(false)
   }
 
-  function handleStarsFilter(e) {
+  function handleStarsFilter(e: { target: { value: string | null } }) {
     if (e.target.value === null || e.target.value === "All") {
       setStarsFilter("All")
     } else {

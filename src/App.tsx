@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
 import GameManager from "./Components/GameManager"
 import Header from "./Components/Header"
