@@ -2,12 +2,22 @@ import React from "react"
 import Card from "./Card"
 import { Spinner } from "react-bootstrap"
 
+type DeckProps = {
+  pokemons: string[]
+  handleClick: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void
+  isCardOpen: boolean[]
+  disableCardIndicator: number
+}
+
 export default function Deck({
   pokemons,
   handleClick,
   isCardOpen,
   disableCardIndicator,
-}) {
+}: DeckProps) {
   const renderCards = () =>
     pokemons.map((pokemon, idx) => (
       <Card
