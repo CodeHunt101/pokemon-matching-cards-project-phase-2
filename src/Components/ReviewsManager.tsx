@@ -28,17 +28,18 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
     return generateStars("fa-3x")[ratingsAvg as keyof typeof generateStars]
   }
 
-  function handleCheckboxChange(e: { target: { checked: boolean } }) {
+  function handleCheckboxChange(e: { target: { checked: any } }) {
     if (e.target.checked) {
       setIsCheckboxChecked(true)
     } else setIsCheckboxChecked(false)
   }
 
-  function handleStarsFilter(e: { target: { value: string | null } }) {
-    if (e.target.value === null || e.target.value === "All") {
+  function handleStarsFilter(e: any) {
+    const target = e.target as HTMLTextAreaElement
+    if (target.value === null || target.value === "All") {
       setStarsFilter("All")
     } else {
-      setStarsFilter(parseInt(e.target.value))
+      setStarsFilter(parseInt(target.value))
     }
   }
 

@@ -1,10 +1,15 @@
 import React from "react"
 import { Form, Col, FloatingLabel } from "react-bootstrap"
 
+type ReviewsFilterProps = {
+  handleCheckboxChange: (e: { target: { checked: any } }) => void
+  handleStarsFilter: (e: any) => void
+}
+
 export default function ReviewsFilter({
   handleCheckboxChange,
   handleStarsFilter,
-}) {
+}: ReviewsFilterProps) {
   return (
     <div className="filter-reviews">
       <Form>
