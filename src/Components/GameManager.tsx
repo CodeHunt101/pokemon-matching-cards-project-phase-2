@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Deck from "./Deck"
 import shuffle, { getPokemonIdFromImgUrl } from "../Helpers"
 import GameControl from "./GameControl"
 
-export default function GameManager({ fetchReviews }) {
-  const [pokemons, setPokemons] = useState([])
-  const [deckSize, setDeckSize] = useState(20)
+type GameManagerProps = {
+  fetchReviews: () => void
+}
+
+export default function GameManager({ fetchReviews }: GameManagerProps) {
+  const [pokemons, setPokemons] = useState<unknown[]>([])
+  const [deckSize, setDeckSize] = useState<number>(20)
   useEffect(() => {
     fetchPokemons()
     setIsCardOpen(new Array(deckSize).fill(false))
@@ -22,7 +26,7 @@ export default function GameManager({ fetchReviews }) {
       samplePokeIds.concat(cloneSamplePokeIds)
     )
 
-    const pokeImageUrls = finalSampleOfPokeIds.map((pokeId) => {
+    const pokeImageUrls = finalSampleOfPokeIds.map((pokeId: number) => {
       return fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
         .then((resp) => resp.json())
         .then((pokemon) => pokemon.sprites.other.dream_world.front_default)
@@ -39,17 +43,23 @@ export default function GameManager({ fetchReviews }) {
   })
   const [moves, setMoves] = useState(0)
   const [disableCardIndicator, setDisableCardIndicator] = useState(0)
-  function handleClick(e, index) {
+
+  function handleClick(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number | ConcatArray<never>
+  ) {
     //Set clicked card (index) to true and keep track of other states
     setMoves((prevMoves) => prevMoves + 0.5)
     setDisableCardIndicator(
       (prevDisableCardIndicator) => prevDisableCardIndicator + 1
     )
     const copyOfIsCardOpen = [...isCardOpen]
-    copyOfIsCardOpen[index] = true
+    copyOfIsCardOpen[index as number] = true
     setIsCardOpen(copyOfIsCardOpen)
     setNewPokesClicked((prevNewPokesClicked) => ({
-      pokeIndexes: prevNewPokesClicked.pokeIndexes.concat(index),
+      pokeIndexes: [
+        ...prevNewPokesClicked.pokeIndexes.concat(index as ConcatArray<never>),
+      ],
       pokeIds: prevNewPokesClicked.pokeIds.concat(getPokemonIdFromImgUrl(e)),
     }))
   }
@@ -84,7 +94,8 @@ export default function GameManager({ fetchReviews }) {
     fetchPokemons()
   }
 
-  function handleGameDifficulty(e) {
+  function handleGameDifficulty(e: React.FormEvent<HTMLDivElement>) {
+    const target = e.target as HTMLTextAreaElement
     const difficulty = {
       easy: () => setDeckSize(10),
       medium: () => setDeckSize(20),
@@ -93,7 +104,7 @@ export default function GameManager({ fetchReviews }) {
     setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
     setMoves(0)
     setDisableCardIndicator(0)
-    return difficulty[e.target.value]()
+    return difficulty[target.value as keyof typeof difficulty]()
   }
 
   return (

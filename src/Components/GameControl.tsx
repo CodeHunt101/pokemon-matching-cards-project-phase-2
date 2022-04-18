@@ -1,14 +1,13 @@
 import React, { useState } from "react"
 import { Modal, Button, Form } from "react-bootstrap"
 
-
 type GameControlProps = {
   moves: number
   isCardOpen: boolean[]
   restartGame: () => void
   fetchReviews: () => void
-  handleGameDifficulty: (event: React.FormEvent<HTMLDivElement>) => string
-  deckSize: string
+  handleGameDifficulty: (event: React.FormEvent<HTMLDivElement>) => void
+  deckSize: number
 }
 
 export default function GameControl({
@@ -32,7 +31,7 @@ export default function GameControl({
     return isCardOpen.find((card) => !card) === undefined ? true : false
   }
 
-  function handleFormInfo(e: any)  {
+  function handleFormInfo(e: any) {
     const target = e.target as HTMLTextAreaElement
     setForm({
       ...form,

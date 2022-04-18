@@ -5,7 +5,7 @@ type CardProps = {
   index: number
   handleClick: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
+    index: number | ConcatArray<never>
   ) => void
   isCardOpen: boolean
   disableCardIndicator: number

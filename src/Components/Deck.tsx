@@ -3,10 +3,10 @@ import Card from "./Card"
 import { Spinner } from "react-bootstrap"
 
 type DeckProps = {
-  pokemons: string[]
+  pokemons: unknown[] | string[]
   handleClick: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
+    index: number | ConcatArray<never>
   ) => void
   isCardOpen: boolean[]
   disableCardIndicator: number
@@ -23,7 +23,7 @@ export default function Deck({
       <Card
         key={idx}
         index={idx}
-        pokemon={pokemon}
+        pokemon={pokemon as string}
         handleClick={handleClick}
         isCardOpen={isCardOpen[idx]}
         disableCardIndicator={disableCardIndicator}
