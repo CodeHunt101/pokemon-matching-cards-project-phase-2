@@ -1,8 +1,19 @@
-import React from "react"
 import { Card as BtpCard } from "react-bootstrap"
 import { generateStars } from "../Helpers"
 
-export default function Review({ review }) {
+type ReviewProps = {
+  review: {
+    firstName: string
+    lastName: string
+    rating: number
+    comments: string
+    gameDifficulty: string
+    datePosted: number
+    moves: number
+  }
+}
+
+export default function Review({ review }: ReviewProps) {
   return (
     <>
       <BtpCard
@@ -20,7 +31,7 @@ export default function Review({ review }) {
           </b>
         </BtpCard.Header>
         <BtpCard.Body>
-          <BtpCard.Title>{generateStars()[review.rating]}</BtpCard.Title>
+          <BtpCard.Title>{generateStars()[review.rating as keyof typeof generateStars]}</BtpCard.Title>
           <BtpCard.Text>
             {review.comments}
             <br />

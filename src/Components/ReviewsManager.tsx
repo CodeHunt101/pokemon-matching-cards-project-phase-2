@@ -5,15 +5,15 @@ import { generateStars } from "../Helpers"
 
 type ReviewsManagerProps = {
   reviews: {
-    firstName: string,
-    lastName: string,
-    rating: number,
-    comments:string,
-    gameDifficulty:string,
-    datePosted:number,
+    firstName: string
+    lastName: string
+    rating: number
+    comments: string
+    gameDifficulty: string
+    datePosted: number
     moves: number
-  }[]}
-
+  }[]
+}
 
 export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
