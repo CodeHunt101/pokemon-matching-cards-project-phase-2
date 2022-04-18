@@ -10,7 +10,7 @@ export default function Contact() {
     message: "",
   })
 
-  function handleSubmit(e) {
+  function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
     fetch("http://localhost:4000/contact", {
       method: "POST",
@@ -40,7 +40,7 @@ export default function Contact() {
     })
   }
 
-  function handleChange(e) {
+  function handleChange(e: { target: { name: string; value: string } }) {
     setContactForm({
       ...contactForm,
       [e.target.name]: e.target.value,
