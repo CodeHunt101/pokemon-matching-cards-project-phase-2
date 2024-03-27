@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Modal, Button, Form } from "react-bootstrap"
+import React, { useState } from 'react'
+import { Modal, Button, Form } from 'react-bootstrap'
 
 type GameControlProps = {
   moves: number
@@ -21,10 +21,10 @@ export default function GameControl({
   const [isResultsModalReady, setIsResultsModalReady] = useState(true)
   const [isFormModalShown, setIsFormModalShown] = useState(false)
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    rating: "",
-    comments: "",
+    firstName: '',
+    lastName: '',
+    rating: '',
+    comments: '',
   })
 
   function showModal() {
@@ -44,20 +44,20 @@ export default function GameControl({
     setIsResultsModalReady(false)
     const gameDifficulty = () => {
       return {
-        10: "Easy",
-        20: "Medium",
-        30: "Hard",
+        10: 'Easy',
+        20: 'Medium',
+        30: 'Hard',
       }[deckSize]
     }
-    fetch("http://localhost:4000/reviews", {
-      method: "POST",
+    fetch('http://localhost:4000/reviews', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         firstName: form.firstName,
         lastName: form.lastName,
-        rating: form.rating !== "" ? parseInt(form.rating) : 5,
+        rating: form.rating !== '' ? parseInt(form.rating) : 5,
         comments: form.comments,
         gameDifficulty: gameDifficulty(),
         moves: moves,
@@ -65,23 +65,25 @@ export default function GameControl({
       }),
     }).then(fetchReviews)
     setForm({
-      firstName: "",
-      lastName: "",
-      rating: "",
-      comments: "",
+      firstName: '',
+      lastName: '',
+      rating: '',
+      comments: '',
     })
   }
 
   return (
     <div className="game-stats">
-      <i
-        className="fas fa-retweet fa-2x"
+      <span
         onClick={() => {
+          console.log('RESTART!')
           restartGame()
           setIsResultsModalReady(true)
           setIsFormModalShown(false)
         }}
-      ></i>
+      >
+        <i className="fas fa-retweet fa-2x"></i>
+      </span>
       <span className="difficulty-level">
         <div
           onChange={(e) => {

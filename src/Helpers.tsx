@@ -1,4 +1,4 @@
-export default function shuffleArray(array) {
+export default function shuffleArray(array: number[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[array[i], array[j]] = [array[j], array[i]]
@@ -6,7 +6,7 @@ export default function shuffleArray(array) {
   return array
 }
 
-export function getPokemonIdFromImgUrl(e) {
+export function getPokemonIdFromImgUrl(e: any) {
   if (e.target.className === "card") {
     return e.target.firstElementChild.src.replace(/[^0-9]/g, "")
   } else {
@@ -14,7 +14,7 @@ export function getPokemonIdFromImgUrl(e) {
   }
 }
 
-export function generateStars(className) {
+export function generateStars(className?: string) {
   return {
     0: [...Array(5)].map((item, idx) => (
       <i key={idx} className={`far fa-star ${className}`}></i>
