@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import Review from "./Review"
-import ReviewsFilter from "./ReviewsFilter"
-import { generateStars } from "../Helpers"
+import { useState } from 'react'
+import Review from './Review'
+import ReviewsFilter from './ReviewsFilter'
+import { generateStars } from '../Helpers'
 
 type ReviewsManagerProps = {
   reviews: {
@@ -17,7 +17,7 @@ type ReviewsManagerProps = {
 
 export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
-  const [starsFilter, setStarsFilter] = useState<string | number>("All")
+  const [starsFilter, setStarsFilter] = useState<string | number>('All')
 
   function calculateAvgRating() {
     const ratingsSum = reviews
@@ -25,7 +25,7 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
       .reduce((acc, curr) => acc + curr)
     const ratingsAvg = Math.round((ratingsSum / reviews.length) * 2) / 2
 
-    return generateStars("fa-3x")[ratingsAvg as keyof typeof generateStars]
+    return generateStars('fa-3x')[ratingsAvg as keyof typeof generateStars]
   }
 
   function handleCheckboxChange(e: { target: { checked: any } }) {
@@ -36,31 +36,35 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
 
   function handleStarsFilter(e: any) {
     const target = e.target as HTMLTextAreaElement
-    if (target.value === null || target.value === "All") {
-      setStarsFilter("All")
+    if (target.value === null || target.value === 'All') {
+      setStarsFilter('All')
     } else {
       setStarsFilter(parseInt(target.value))
     }
   }
 
   function renderReviews() {
-    if (isCheckboxChecked && starsFilter === "All") {
-      return reviews.map((review, idx) => <Review key={idx} review={review} />)
-    } else if (isCheckboxChecked && starsFilter !== "All") {
+    if (isCheckboxChecked && starsFilter === 'All') {
+      return reviews.map((review) => (
+        <Review key={review.datePosted} review={review} />
+      ))
+    } else if (isCheckboxChecked && starsFilter !== 'All') {
       return reviews
         .filter((review) => review.rating === starsFilter)
-        .map((review, idx) => <Review key={idx} review={review} />)
-    } else if (!isCheckboxChecked && starsFilter === "All") {
+        .map((review) => <Review key={review.datePosted} review={review} />)
+    } else if (!isCheckboxChecked && starsFilter === 'All') {
       return reviews
-        .map((review, idx) => <Review key={idx} review={review} />)
+        .map((review) => <Review key={review.datePosted} review={review} />)
         .reverse()
-    } else if (!isCheckboxChecked && starsFilter !== "All") {
+    } else if (!isCheckboxChecked && starsFilter !== 'All') {
       return reviews
         .filter((review) => review.rating === starsFilter)
-        .map((review, idx) => <Review key={idx} review={review} />)
+        .map((review) => <Review key={review.datePosted} review={review} />)
         .reverse()
-    }
+    } else return []
   }
+
+  const renderedReviews = renderReviews()
 
   return (
     <>
@@ -74,7 +78,13 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
         />
       }
       <div className="average-rating">{calculateAvgRating()}</div>
-      <div className="reviews-container">{renderReviews()}</div>
+      <div className="reviews-container">
+        {renderedReviews.length > 0 ? (
+          renderedReviews
+        ) : (
+          <h2>No reviews found</h2>
+        )}
+      </div>
     </>
   )
 }
