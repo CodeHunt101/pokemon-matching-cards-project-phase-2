@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react"
-import { Container } from "react-bootstrap"
-import GameManager from "./Components/GameManager"
-import Header from "./Components/Header"
-import Menu from "./Components/Menu"
-import ReviewsManager from "./Components/ReviewsManager"
-import Contact from "./Components/Contact"
-import { Switch, Route } from "react-router-dom"
-import initialReviews from "./InitialReviews"
+import { useEffect, useState } from 'react'
+import { Container } from 'react-bootstrap'
+import GameManager from './Components/GameManager'
+import Header from './Components/Header'
+import Menu from './Components/Menu'
+import ReviewsManager from './Components/ReviewsManager'
+import Contact from './Components/Contact'
+import initialReviews from './InitialReviews'
+import { Route, Routes } from 'react-router'
 
 export default function App() {
   const [reviews, setReviews] = useState(initialReviews)
 
   function fetchReviews() {
-    fetch("http://localhost:4000/reviews")
+    fetch('http://localhost:4000/reviews')
       .then((resp) => resp.json())
       .then((jsonReviews) => {
         setReviews(initialReviews.concat(jsonReviews))
@@ -33,17 +33,11 @@ export default function App() {
     <Container>
       <Menu />
       <Header />
-      <Switch>
-        <Route exact path="/">
-          <GameManager fetchReviews={fetchReviews} />
-        </Route>
-        <Route exact path="/reviews">
-          <ReviewsManager reviews={reviews} />
-        </Route>
-        <Route exact path="/contact">
-          <Contact />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<GameManager fetchReviews={fetchReviews} />} />
+        <Route path="/reviews" element={<ReviewsManager reviews={reviews} />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </Container>
   )
 }
