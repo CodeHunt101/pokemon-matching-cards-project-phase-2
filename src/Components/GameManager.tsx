@@ -4,7 +4,15 @@ import shuffle, { getPokemonIdFromImgUrl } from '../Helpers'
 import GameControl from './GameControl'
 
 type GameManagerProps = {
-  fetchReviews: () => void
+  fetchReviews: () => Promise<{
+    firstName: string;
+    lastName: string;
+    rating: number;
+    comments: string;
+    gameDifficulty: string;
+    moves: number;
+    datePosted: number;
+}[] | undefined>
 }
 
 export default function GameManager({ fetchReviews }: GameManagerProps) {

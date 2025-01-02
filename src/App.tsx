@@ -9,7 +9,15 @@ import { HashRouter, Route, Routes } from 'react-router'
 
 export default async function App() {
 
-  async function fetchReviews() {
+  async function fetchReviews(): Promise<{
+    firstName: string;
+    lastName: string;
+    rating: number;
+    comments: string;
+    gameDifficulty: string;
+    moves: number;
+    datePosted: number;
+}[] | undefined> {
     try {
       const resp = await fetch('http://localhost:4000/reviews')
       const jsonReviews = await resp.json()

@@ -5,7 +5,15 @@ type GameControlProps = {
   moves: number
   isCardOpen: boolean[]
   restartGame: () => void
-  fetchReviews: () => void
+  fetchReviews: () => Promise<{
+    firstName: string;
+    lastName: string;
+    rating: number;
+    comments: string;
+    gameDifficulty: string;
+    moves: number;
+    datePosted: number;
+}[] | undefined>
   handleGameDifficulty: (event: React.ChangeEvent<HTMLInputElement>) => void
   deckSize: number
 }
@@ -49,12 +57,14 @@ export default function GameControl({
         30: 'Hard',
       }[deckSize]
     }
-    fetch('http://localhost:4000/reviews', {
-      method: 'POST',
-      headers: {
+    (async () => {
+      try {
+      const response = await fetch('http://localhost:4000/reviews', {
+        method: 'POST',
+        headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+        },
+        body: JSON.stringify({
         firstName: form.firstName,
         lastName: form.lastName,
         rating: form.rating !== '' ? parseInt(form.rating) : 5,
@@ -62,8 +72,18 @@ export default function GameControl({
         gameDifficulty: gameDifficulty(),
         moves: moves,
         datePosted: Date.now(),
-      }),
-    }).then(fetchReviews)
+        }),
+      });
+      if (response.ok) {
+        await fetchReviews();
+      } else {
+        console.error('Failed to submit review');
+      }
+      } catch (error) {
+      console.error('Error:', error);
+      }
+
+    })();
     setForm({
       firstName: '',
       lastName: '',

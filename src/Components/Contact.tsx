@@ -10,27 +10,24 @@ export default function Contact() {
     message: "",
   })
 
-  function handleSubmit(e: { preventDefault: () => void }) {
+  async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
-    fetch("http://localhost:4000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName: contactForm.firstName,
-        lastName: contactForm.lastName,
-        email: contactForm.email,
-        phone: contactForm.phone,
-        message: contactForm.message,
-      }),
-    })
-      .then(() =>
+    try {
+      const response = await fetch("http://localhost:4000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactForm),
+      })
+      if (response.ok) {
         alert(`Thank you ${contactForm.firstName}, I will contact you soon!`)
-      )
-      .catch(() =>
-        alert(`Thank you ${contactForm.firstName}, I will contact you soon!`)
-      )
+      } else {
+        alert(`Something went wrong. Please try again later.`)
+      }
+    } catch (error) {
+      alert(`Something went wrong. Please try again later.`)
+    }
     setContactForm({
       firstName: "",
       lastName: "",
