@@ -6,7 +6,7 @@ type GameControlProps = {
   isCardOpen: boolean[]
   restartGame: () => void
   fetchReviews: () => void
-  handleGameDifficulty: (event: React.FormEvent<HTMLDivElement>) => void
+  handleGameDifficulty: (event: React.ChangeEvent<HTMLInputElement>) => void
   deckSize: number
 }
 
@@ -86,7 +86,6 @@ export default function GameControl({
       <div
         className="difficulty-level"
         onChange={(e) => {
-          handleGameDifficulty(e)
           setIsResultsModalReady(true)
         }}
       >
@@ -96,6 +95,7 @@ export default function GameControl({
           type="radio"
           label="Easy"
           value="easy"
+          onChange={handleGameDifficulty}
         />
         <Form.Check
           inline
@@ -104,6 +104,7 @@ export default function GameControl({
           label="Medium"
           value="medium"
           defaultChecked
+          onChange={handleGameDifficulty}
         />
         <Form.Check
           inline
@@ -111,6 +112,7 @@ export default function GameControl({
           type="radio"
           label="Hard"
           value="hard"
+          onChange={handleGameDifficulty}
         />
       </div>
 

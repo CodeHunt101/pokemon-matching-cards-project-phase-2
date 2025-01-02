@@ -94,8 +94,7 @@ export default function GameManager({ fetchReviews }: GameManagerProps) {
     fetchPokemons()
   }
 
-  function handleGameDifficulty(e: React.FormEvent<HTMLDivElement>) {
-    const target = e.target as HTMLTextAreaElement
+  function handleGameDifficulty(e: React.ChangeEvent<HTMLInputElement>) {
     const difficulty = {
       easy: () => setDeckSize(10),
       medium: () => setDeckSize(20),
@@ -104,7 +103,7 @@ export default function GameManager({ fetchReviews }: GameManagerProps) {
     setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
     setMoves(0)
     setDisableCardIndicator(0)
-    return difficulty[target.value as keyof typeof difficulty]()
+    difficulty[e.target.value as keyof typeof difficulty]()
   }
 
   return (
