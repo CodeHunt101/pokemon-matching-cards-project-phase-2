@@ -15,9 +15,15 @@ div#root div.container {
   display: grid;
 }
 
+nav.navbar {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
 div.navbar-nav {
   display: flex;
   align-items: center;
+  border-radius: 1rem;
 }
 div.navbar-nav a {
   padding-right: 0.5rem;
@@ -36,6 +42,10 @@ a#contact-me {
   text-align: right;
   margin-left: auto;
   width: fit-content;
+
+  @media (max-width: 768px) {
+    margin-right: 1rem;;
+  }
 }
 a#contact-me:hover {
   color: brown;
@@ -48,20 +58,36 @@ h1 {
   text-align: center;
   display: block;
 }
-div.header img {
-  margin: auto;
-  display: block;
+header.header .logo {
+  height: 99px;
+  img {
+    margin: auto;
+    display: block;
+  }
 }
-div .game-stats {
+div.game-stats {
   display: flex;
   justify-content: space-evenly;
-  min-width: 660px;
+  margin-top: 1rem;
+  min-width: 340px;
   max-width: 1000px;
-  margin: auto;
+  margin-inline: auto;
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+}
+
+.moves {
+  font-weight: bold;
 }
 
 .fa-retweet {
   cursor: pointer;
+  @media (max-width: 768px) {
+    scale: 0.75;
+  }
+  
 }
 
 img.hidden {
@@ -76,10 +102,10 @@ img.open {
 }
 
 .deck {
-  margin: auto;
+  margin: 1.125rem auto;
   max-width: 800px;
-  min-width: 660px;
-  min-height: 680px;
+  min-width: 350px;
+  min-height: 456px;
   padding: 28px;
   background: linear-gradient(135deg, #ffcb05 0%, #2a75bb 100%);
   border-radius: 15px;
@@ -88,10 +114,16 @@ img.open {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 0.75rem;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    gap: 0.5rem;
+    min-height: 376px;
+  }
 }
 
 .deck button.card {
-  margin: 5px;
   height: 125px;
   width: 125px;
   background: rgb(24, 46, 90);
@@ -102,6 +134,16 @@ img.open {
   justify-content: center;
   align-items: center;
   box-shadow: 5px 2px 20px 0 rgb(46 61 73 / 50%);
+
+  @media (max-width: 512px) {
+    height: 80px;
+    width: 80px;
+  };
+
+  @media (min-width: 513px) and (max-width: 768px) {
+    height: 100px;
+    width: 100px;
+  };
 }
 div.average-rating {
   text-align: center;

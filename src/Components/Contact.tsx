@@ -48,7 +48,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="contact-us">
+    <div className="contact-us px-3">
       <h1>
         <b>Contact</b>
       </h1>

@@ -1,5 +1,4 @@
-import React from "react"
-import { Form, Col, FloatingLabel } from "react-bootstrap"
+import { Form, FloatingLabel } from "react-bootstrap"
 
 type ReviewsFilterProps = {
   handleCheckboxChange: (e: { target: { checked: any } }) => void
@@ -12,8 +11,7 @@ export default function ReviewsFilter({
 }: ReviewsFilterProps) {
   return (
     <div className="filter-reviews">
-      <Form>
-        <Col xs={2}>
+      <Form className="w-25">
           <Form.Check
             onChange={handleCheckboxChange}
             type="checkbox"
@@ -30,7 +28,6 @@ export default function ReviewsFilter({
               <option value="0">Zero</option>
             </Form.Select>
           </FloatingLabel>
-        </Col>
       </Form>
     </div>
   )

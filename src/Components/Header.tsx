@@ -1,17 +1,27 @@
+import { Badge } from 'react-bootstrap'
 
 export default function Header() {
   return (
-    <div className={"header"}>
-      <a id={"contact-me"} href="mailto:haroldtm55@gmail.com">
+    <header className="header">
+      <a id={'contact-me'} href="mailto:haroldtm55@gmail.com">
         <b>Contact the Developer</b>
       </a>
-      <img
-        src={
-          "https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg"
-        }
-        alt={"The international Pokemon logo."}
-      ></img>
-      <h1>Matching Cards</h1>
-    </div>
+      <div className="logo">
+        <img
+          src={process.env.PUBLIC_URL + "/pokemon-logo.svg"}
+          alt="The international Pokemon logo"
+          width="269.47"
+          height="98.81"
+          loading="eager"
+          fetchPriority="high"
+        ></img>
+      </div>
+
+      <h1>
+        <Badge className="m-3" bg="primary">
+          <small>Matching Cards</small>
+        </Badge>
+      </h1>
+    </header>
   )
 }

@@ -67,7 +67,7 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
   const renderedReviews = renderReviews()
 
   return (
-    <>
+    <div className="reviews-manager px-3">
       <h1>
         <b>Reviews</b>
       </h1>
@@ -85,6 +85,6 @@ export default function ReviewsManager({ reviews }: ReviewsManagerProps) {
           <h2>No reviews found</h2>
         )}
       </div>
-    </>
+    </div>
   )
 }

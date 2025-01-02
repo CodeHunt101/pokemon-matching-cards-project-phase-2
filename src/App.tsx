@@ -30,7 +30,7 @@ export default function App() {
   }, [])
 
   return (
-    <Container>
+    <Container fluid className='px-0 px-md-3'>
       <Menu />
       <Header />
       <Routes>

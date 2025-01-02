@@ -73,53 +73,49 @@ export default function GameControl({
   }
 
   return (
-    <div className="game-stats">
-      <span
-        onClick={() => {
-          console.log('RESTART!')
-          restartGame()
+    <div
+      className="game-stats"
+      onClick={() => {
+        restartGame()
+        setIsResultsModalReady(true)
+        setIsFormModalShown(false)
+      }}
+    >
+      <i className="fas fa-retweet fa-2x"></i>
+
+      <div
+        className="difficulty-level"
+        onChange={(e) => {
+          handleGameDifficulty(e)
           setIsResultsModalReady(true)
-          setIsFormModalShown(false)
         }}
       >
-        <i className="fas fa-retweet fa-2x"></i>
-      </span>
-      <span className="difficulty-level">
-        <div
-          onChange={(e) => {
-            handleGameDifficulty(e)
-            setIsResultsModalReady(true)
-          }}
-        >
-          <Form.Check
-            inline
-            name="difficulty"
-            type="radio"
-            label="Easy"
-            value="easy"
-          />
-          <Form.Check
-            inline
-            name="difficulty"
-            type="radio"
-            label="Medium"
-            value="medium"
-            defaultChecked
-          />
-          <Form.Check
-            inline
-            name="difficulty"
-            type="radio"
-            label="Hard"
-            value="hard"
-          />
-        </div>
-      </span>
-      <span>
-        <h5>
-          <strong>Moves: {Math.floor(moves)}</strong>
-        </h5>
-      </span>
+        <Form.Check
+          inline
+          name="difficulty"
+          type="radio"
+          label="Easy"
+          value="easy"
+        />
+        <Form.Check
+          inline
+          name="difficulty"
+          type="radio"
+          label="Medium"
+          value="medium"
+          defaultChecked
+        />
+        <Form.Check
+          inline
+          name="difficulty"
+          type="radio"
+          label="Hard"
+          value="hard"
+        />
+      </div>
+
+      <span className="moves">Moves: {Math.floor(moves)}</span>
+
       {isResultsModalReady && (
         <Modal centered show={showModal()}>
           <Modal.Header
