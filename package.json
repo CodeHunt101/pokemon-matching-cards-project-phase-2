@@ -8,7 +8,6 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^5.3.3",
-    "json-server": "^1.0.0-beta.3",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0",
@@ -44,7 +43,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^3.2.3",
     "@types/react-dom": "^19.0.2",
-    "gh-pages": "^3.2.3"
+    "json-server": "^1.0.0-beta.3"
   }
 }

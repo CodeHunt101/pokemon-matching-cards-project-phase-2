@@ -5,7 +5,7 @@ import App from './App';
 test('renders reviws', () => {
   render(
     <Router>
-      <App />
+      {App()}
     </Router>
   );
   const linkElement = screen.getByText(/reviews/i);
