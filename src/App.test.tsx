@@ -1,13 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router';
 import App from './App';
 
-test('renders reviws', () => {
-  render(
-    <Router>
-      {App()}
-    </Router>
-  );
-  const linkElement = screen.getByText(/reviews/i);
-  expect(linkElement).toBeInTheDocument();
+// Mock fetch
+global.fetch = jest.fn(() => 
+  Promise.resolve({
+    json: () => Promise.resolve([])
+  })
+) as jest.Mock;
+
+describe('App Component', () => {
+  beforeEach(() => {
+    (fetch as jest.Mock).mockClear();
+  });
+
+  it('renders reviews link', async () => {
+    const AppComponent = await App();
+    render(AppComponent);
+    
+    const linkElement = await screen.findByText(/reviews/i);
+    expect(linkElement).toBeInTheDocument();
+  });
 });

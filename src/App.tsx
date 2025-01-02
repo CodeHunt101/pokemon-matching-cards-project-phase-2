@@ -5,7 +5,7 @@ import Menu from './Components/Menu'
 import ReviewsManager from './Components/ReviewsManager'
 import Contact from './Components/Contact'
 import initialReviews from './InitialReviews'
-import { Route, Routes } from 'react-router'
+import { HashRouter, Route, Routes } from 'react-router'
 
 export default async function App() {
 
@@ -25,6 +25,7 @@ export default async function App() {
 
   return (
     <Container fluid className='px-0 px-md-3'>
+      <HashRouter>
       <Menu />
       <Header />
       <Routes>
@@ -32,6 +33,7 @@ export default async function App() {
         <Route path="/reviews" element={<ReviewsManager reviews={reviews || initialReviews} />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      </HashRouter>
     </Container>
   )
 }

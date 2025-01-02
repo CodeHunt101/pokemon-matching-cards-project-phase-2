@@ -4,15 +4,11 @@ import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import "bootstrap/dist/css/bootstrap.css"
 import { createRoot } from 'react-dom/client';
-import { HashRouter } from "react-router"
-
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <HashRouter>
       {App()}
-    </HashRouter>
   </React.StrictMode>
 );
 

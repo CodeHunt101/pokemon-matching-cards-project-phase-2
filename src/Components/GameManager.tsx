@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
-import Deck from "./Deck"
-import shuffle, { getPokemonIdFromImgUrl } from "../Helpers"
-import GameControl from "./GameControl"
+import { useEffect, useState } from 'react'
+import Deck from './Deck'
+import shuffle, { getPokemonIdFromImgUrl } from '../Helpers'
+import GameControl from './GameControl'
 
 type GameManagerProps = {
   fetchReviews: () => void
@@ -16,24 +16,24 @@ export default function GameManager({ fetchReviews }: GameManagerProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckSize])
 
-  function fetchPokemons() {
+  async function fetchPokemons() {
     setPokemons([])
     // Enum a list from 1 to 151, take and shuffle the first half of the deck, clone and shuffle again, join.
-    const allPokeIds = new Array(151).fill(null).map((id, idx) => idx + 1)
+    const allPokeIds = new Array(151).fill(null).map((_id, idx) => idx + 1)
     const samplePokeIds = shuffle(allPokeIds).slice(0, deckSize / 2)
     const cloneSamplePokeIds = [...samplePokeIds]
     const finalSampleOfPokeIds = shuffle(
       samplePokeIds.concat(cloneSamplePokeIds)
     )
 
-    const pokeImageUrls = finalSampleOfPokeIds.map((pokeId: number) => {
-      return fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
-        .then((resp) => resp.json())
-        .then((pokemon) => pokemon.sprites.other.dream_world.front_default)
-    })
-    Promise.all(pokeImageUrls).then((pokeImageUrls) =>
-      setPokemons(pokeImageUrls)
+    const pokeImageUrls = await Promise.all(
+      finalSampleOfPokeIds.map(async (pokeId: number) => {
+        const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
+        const pokemon = await resp?.json()
+        return pokemon?.sprites.other.dream_world.front_default
+      })
     )
+    setPokemons(pokeImageUrls)
   }
 
   const [isCardOpen, setIsCardOpen] = useState(new Array(deckSize).fill(false))
