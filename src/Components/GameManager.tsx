@@ -2,20 +2,9 @@ import { useEffect, useState } from 'react'
 import Deck from './Deck'
 import shuffle, { getPokemonIdFromImgUrl } from '../Helpers'
 import GameControl from './GameControl'
+import { pokemonApi } from '../api/services'
 
-type GameManagerProps = {
-  fetchReviews: () => Promise<{
-    firstName: string;
-    lastName: string;
-    rating: number;
-    comments: string;
-    gameDifficulty: string;
-    moves: number;
-    datePosted: number;
-}[] | undefined>
-}
-
-export default function GameManager({ fetchReviews }: GameManagerProps) {
+export default function GameManager() {
   const [pokemons, setPokemons] = useState<unknown[]>([])
   const [deckSize, setDeckSize] = useState<number>(20)
   useEffect(() => {
@@ -35,11 +24,9 @@ export default function GameManager({ fetchReviews }: GameManagerProps) {
     )
 
     const pokeImageUrls = await Promise.all(
-      finalSampleOfPokeIds.map(async (pokeId: number) => {
-        const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
-        const pokemon = await resp?.json()
-        return pokemon?.sprites.other.dream_world.front_default
-      })
+      finalSampleOfPokeIds.map(
+        async (pokeId: number) => await pokemonApi.getPokemonSprite(pokeId)
+      )
     )
     setPokemons(pokeImageUrls)
   }
@@ -120,7 +107,6 @@ export default function GameManager({ fetchReviews }: GameManagerProps) {
         moves={moves}
         isCardOpen={isCardOpen}
         restartGame={restartGame}
-        fetchReviews={fetchReviews}
         handleGameDifficulty={handleGameDifficulty}
         deckSize={deckSize}
       />

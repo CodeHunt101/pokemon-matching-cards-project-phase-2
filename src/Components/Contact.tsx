@@ -1,39 +1,34 @@
-import React, { useState } from "react"
-import { Form, Row, Button, Col } from "react-bootstrap"
+import React, { useState } from 'react'
+import { Form, Row, Button, Col } from 'react-bootstrap'
+import { contactApi } from '../api/services'
 
 export default function Contact() {
   const [contactForm, setContactForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: '',
   })
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
     try {
-      const response = await fetch("http://localhost:4000/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(contactForm),
-      })
-      if (response.ok) {
-        alert(`Thank you ${contactForm.firstName}, I will contact you soon!`)
-      } else {
+      const response = await contactApi.submitContact(contactForm)
+      if (response.error) {
         alert(`Something went wrong. Please try again later.`)
+      } else {
+        alert(`Thank you ${contactForm.firstName}, I will contact you soon!`)
       }
     } catch (error) {
       alert(`Something went wrong. Please try again later.`)
     }
     setContactForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      message: '',
     })
   }
 

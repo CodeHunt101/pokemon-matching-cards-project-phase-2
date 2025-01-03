@@ -1,19 +1,12 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
+import { reviewsApi } from '../api/services'
+import { Review } from '../types/types'
 
 type GameControlProps = {
   moves: number
   isCardOpen: boolean[]
   restartGame: () => void
-  fetchReviews: () => Promise<{
-    firstName: string;
-    lastName: string;
-    rating: number;
-    comments: string;
-    gameDifficulty: string;
-    moves: number;
-    datePosted: number;
-}[] | undefined>
   handleGameDifficulty: (event: React.ChangeEvent<HTMLInputElement>) => void
   deckSize: number
 }
@@ -22,7 +15,6 @@ export default function GameControl({
   moves,
   isCardOpen,
   restartGame,
-  fetchReviews,
   handleGameDifficulty,
   deckSize,
 }: GameControlProps) {
@@ -36,7 +28,7 @@ export default function GameControl({
   })
 
   function showModal() {
-    return isCardOpen.find((card) => !card) === undefined ? true : false
+    return isCardOpen.find((card) => !card) === undefined
   }
 
   function handleFormInfo(e: any) {
@@ -47,43 +39,40 @@ export default function GameControl({
     })
   }
 
-  function handleSubmit(e: { preventDefault: () => void }) {
+  const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsResultsModalReady(false)
-    const gameDifficulty = () => {
-      return {
+    const getDifficultyLevel = (): string => {
+      const difficultyMap: Record<number, string> = {
         10: 'Easy',
         20: 'Medium',
         30: 'Hard',
-      }[deckSize]
+      }
+      return difficultyMap[deckSize] || 'Medium'
     }
-    (async () => {
+    ;(async () => {
       try {
-      const response = await fetch('http://localhost:4000/reviews', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        firstName: form.firstName,
-        lastName: form.lastName,
-        rating: form.rating !== '' ? parseInt(form.rating) : 5,
-        comments: form.comments,
-        gameDifficulty: gameDifficulty(),
-        moves: moves,
-        datePosted: Date.now(),
-        }),
-      });
-      if (response.ok) {
-        await fetchReviews();
-      } else {
-        console.error('Failed to submit review');
-      }
-      } catch (error) {
-      console.error('Error:', error);
-      }
+        const reviewData: Omit<Review, 'datePosted'> = {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          rating: parseInt(form.rating),
+          comments: form.comments,
+          gameDifficulty: getDifficultyLevel(),
+          moves: Math.floor(moves),
+        }
 
-    })();
+        const response = await reviewsApi.createReview(reviewData)
+
+        if (response.error) {
+          console.error('Failed to submit review')
+          return
+        }
+
+        await reviewsApi.getReviews()
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    })()
     setForm({
       firstName: '',
       lastName: '',
@@ -93,15 +82,16 @@ export default function GameControl({
   }
 
   return (
-    <div
-      className="game-stats"
-      onClick={() => {
-        restartGame()
-        setIsResultsModalReady(true)
-        setIsFormModalShown(false)
-      }}
-    >
-      <i className="fas fa-retweet fa-2x"></i>
+    <div className="game-stats">
+      <span
+        onClick={() => {
+          restartGame()
+          setIsResultsModalReady(true)
+          setIsFormModalShown(false)
+        }}
+      >
+        <i className="fas fa-retweet fa-2x"></i>
+      </span>
 
       <div
         className="difficulty-level"
@@ -171,7 +161,7 @@ export default function GameControl({
           </Modal.Footer>
           {isFormModalShown && (
             <Modal.Body>
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmitReview}>
                 <Form.Control
                   required
                   type="text"
