@@ -4,6 +4,8 @@ My first ever React project!
 
 A fun and interactive Pokémon-themed matching cards game built with React, JavaScript/TypeScript, and Bootstrap/CSS.
 
+<img src="https://live.staticflickr.com/65535/54257382696_4a0ca9d9cd_o.gif" alt="Example Image" width="512">
+
 ## Features
 
 * **Deck of Pokémon cards**: A randomly generated deck of Pokémon cards, each with a unique image and ID.
