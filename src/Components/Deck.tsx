@@ -1,12 +1,13 @@
-import React from "react"
-import Card from "./Card"
-import { Spinner } from "react-bootstrap"
+import React from 'react'
+import Card from './Card'
+import { Spinner } from 'react-bootstrap'
+import { Pokemon } from './GameManager'
 
 type DeckProps = {
-  pokemons: unknown[] | string[]
+  pokemons: Pokemon[]
   handleClick: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number | ConcatArray<never>
+    index: number
   ) => void
   isCardOpen: boolean[]
   disableCardIndicator: number
@@ -23,7 +24,7 @@ export default function Deck({
       <Card
         key={idx}
         index={idx}
-        pokemon={pokemon as string}
+        pokemon={pokemon.spriteUrl}
         handleClick={handleClick}
         isCardOpen={isCardOpen[idx]}
         disableCardIndicator={disableCardIndicator}
@@ -31,7 +32,7 @@ export default function Deck({
     ))
 
   return (
-    <div className={"deck"}>
+    <div className={'deck'}>
       {renderCards().length === 0 && (
         <Spinner animation="border" variant="primary" />
       )}

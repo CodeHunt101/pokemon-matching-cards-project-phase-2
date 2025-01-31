@@ -4,105 +4,120 @@ import shuffle, { getPokemonIdFromImgUrl } from '../Helpers'
 import GameControl from './GameControl'
 import { pokemonApi } from '../api/services'
 
+export type Pokemon = {
+  id: number
+  spriteUrl: string
+}
+
 export default function GameManager() {
-  const [pokemons, setPokemons] = useState<unknown[]>([])
+  const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [deckSize, setDeckSize] = useState<number>(20)
+  const [isCardOpen, setIsCardOpen] = useState<boolean[]>([])
+  const [selectedPairs, setSelectedPairs] = useState<{
+    indexes: number[]
+    ids: number[]
+  }>({ indexes: [], ids: [] })
+  const [moves, setMoves] = useState<number>(0)
+  const [disableCards, setDisableCards] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+
   useEffect(() => {
-    fetchPokemons()
-    setIsCardOpen(new Array(deckSize).fill(false))
+    initialiseGame()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckSize])
 
-  async function fetchPokemons() {
-    setPokemons([])
-    // Enum a list from 1 to 151, take and shuffle the first half of the deck, clone and shuffle again, join.
-    const allPokeIds = new Array(151).fill(null).map((_id, idx) => idx + 1)
+  const initialiseGame = async () => {
+    try {
+      setIsCardOpen(new Array(deckSize).fill(false))
+      await fetchPokemons()
+      // Reset game progress states:
+      setSelectedPairs({ indexes: [], ids: [] })
+      setMoves(0)
+      setDisableCards(false)
+      setError(null)
+    } catch (err) {
+      setError('Failed to initialize the game.')
+    }
+  }
+
+  const fetchPokemons = async () => {
+    const allPokeIds = Array.from({ length: 151 }, (_, idx) => idx + 1)
+    // Select unique Pokémon for half the deck size (since we need pairs)
     const samplePokeIds = shuffle(allPokeIds).slice(0, deckSize / 2)
-    const cloneSamplePokeIds = [...samplePokeIds]
-    const finalSampleOfPokeIds = shuffle(
-      samplePokeIds.concat(cloneSamplePokeIds)
+    // Duplicate and shuffle to create matching pairs
+    const pairedPokeIds = shuffle([...samplePokeIds, ...samplePokeIds])
+
+    const pokeImageUrls: Pokemon[] = await Promise.all(
+      pairedPokeIds.map(async (pokeId) => {
+        const spriteUrl = (await pokemonApi.getPokemonSprite(pokeId)) || ''
+
+        return { id: pokeId, spriteUrl }
+      })
     )
 
-    const pokeImageUrls = await Promise.all(
-      finalSampleOfPokeIds.map(
-        async (pokeId: number) => await pokemonApi.getPokemonSprite(pokeId)
-      )
-    )
     setPokemons(pokeImageUrls)
   }
 
-  const [isCardOpen, setIsCardOpen] = useState(new Array(deckSize).fill(false))
-  const [newPairOfPokesClicked, setNewPokesClicked] = useState({
-    pokeIndexes: [],
-    pokeIds: [],
-  })
-  const [moves, setMoves] = useState(0)
-  const [disableCardIndicator, setDisableCardIndicator] = useState(0)
-
-  function handleClick(
+  const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number | ConcatArray<never>
-  ) {
-    //Set clicked card (index) to true and keep track of other states
-    setMoves((prevMoves) => prevMoves + 0.5)
-    setDisableCardIndicator(
-      (prevDisableCardIndicator) => prevDisableCardIndicator + 1
-    )
-    const copyOfIsCardOpen = [...isCardOpen]
-    copyOfIsCardOpen[index as number] = true
-    setIsCardOpen(copyOfIsCardOpen)
-    setNewPokesClicked((prevNewPokesClicked) => ({
-      pokeIndexes: [
-        ...prevNewPokesClicked.pokeIndexes.concat(index as ConcatArray<never>),
-      ],
-      pokeIds: prevNewPokesClicked.pokeIds.concat(getPokemonIdFromImgUrl(e)),
-    }))
-  }
-  useEffect(() => {
-    const timeOut = 500
-    const copyOfIsCardOpen = [...isCardOpen]
-    /*if two cards are selected, even if it's the same card clicked twice, disable all cards from 
-    receiving clicks within the given timeout and clean up pairPokeIndexes and pairpokeIds */
-    if (newPairOfPokesClicked.pokeIndexes.length === 2) {
-      setTimeout(() => setDisableCardIndicator(0), timeOut)
-      setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
-      /* if additionally, their id's don't match, disable all cards from receiving clicks 
-      and hide the selected cards within the given timeOut */
-      if (
-        newPairOfPokesClicked.pokeIds[0] !== newPairOfPokesClicked.pokeIds[1]
-      ) {
-        setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
-        copyOfIsCardOpen[newPairOfPokesClicked.pokeIndexes[0]] = false
-        copyOfIsCardOpen[newPairOfPokesClicked.pokeIndexes[1]] = false
+    index: number
+  ) => {
+    if (disableCards || isCardOpen[index]) return // Prevent interaction during animations/matches
+
+    setMoves((prev) => prev + 1)
+    setDisableCards(true) // Lock board during card evaluation
+
+    const newIsCardOpen = [...isCardOpen]
+    newIsCardOpen[index] = true
+    setIsCardOpen(newIsCardOpen)
+
+    const clickedPokeId = getPokemonIdFromImgUrl(e)
+    const updatedPairs = {
+      indexes: [...selectedPairs.indexes, index],
+      ids: [...selectedPairs.ids, clickedPokeId],
+    }
+    setSelectedPairs(updatedPairs)
+
+    if (updatedPairs.ids.length === 2) {
+      if (updatedPairs.ids[0] === updatedPairs.ids[1]) {
+        // Successful match - keep cards open
+        setSelectedPairs({ indexes: [], ids: [] })
+        setDisableCards(false)
+      } else {
+        // No match - flip back after delay
         setTimeout(() => {
-          setIsCardOpen(copyOfIsCardOpen)
-        }, timeOut)
+          const resetIsCardOpen = [...newIsCardOpen]
+          resetIsCardOpen[updatedPairs.indexes[0]] = false
+          resetIsCardOpen[updatedPairs.indexes[1]] = false
+          setIsCardOpen(resetIsCardOpen)
+          setSelectedPairs({ indexes: [], ids: [] })
+          setDisableCards(false)
+        }, 500) // delay for player to see both cards
       }
+    } else {
+      setDisableCards(false) // Single card flipped - unlock board
     }
-  }, [newPairOfPokesClicked, isCardOpen, disableCardIndicator])
-
-  function restartGame() {
-    setIsCardOpen(new Array(deckSize).fill(false))
-    setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
-    setMoves(0)
-    setDisableCardIndicator(0)
-    fetchPokemons()
   }
 
-  function handleGameDifficulty(e: React.ChangeEvent<HTMLInputElement>) {
-    const difficulty = {
-      easy: () => setDeckSize(10),
-      medium: () => setDeckSize(20),
-      hard: () => setDeckSize(30),
-    }
-    setNewPokesClicked({ pokeIndexes: [], pokeIds: [] })
-    setMoves(0)
-    setDisableCardIndicator(0)
-    difficulty[e.target.value as keyof typeof difficulty]()
+  const restartGame = () => {
+    initialiseGame()
   }
+
+  const handleGameDifficulty = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const difficultySettings: Record<string, number> = {
+      easy: 10,
+      medium: 20,
+      hard: 30,
+    }
+    const newDeckSize = difficultySettings[e.target.value] || 20
+    setDeckSize(newDeckSize)
+  }
+
+  console.log(pokemons[0])
 
   return (
     <>
+      {error && <div className="error">{error}</div>}
       <GameControl
         moves={moves}
         isCardOpen={isCardOpen}
@@ -114,7 +129,7 @@ export default function GameManager() {
         pokemons={pokemons}
         handleClick={handleClick}
         isCardOpen={isCardOpen}
-        disableCardIndicator={disableCardIndicator}
+        disableCardIndicator={disableCards ? 1 : 0}
       />
     </>
   )

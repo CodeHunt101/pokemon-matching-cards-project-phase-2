@@ -50,29 +50,29 @@ export default function GameControl({
       }
       return difficultyMap[deckSize] || 'Medium'
     }
-    ;(async () => {
-      try {
-        const reviewData: Omit<Review, 'datePosted'> = {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          rating: parseInt(form.rating),
-          comments: form.comments,
-          gameDifficulty: getDifficultyLevel(),
-          moves: Math.floor(moves),
-        }
 
-        const response = await reviewsApi.createReview(reviewData)
-
-        if (response.error) {
-          console.error('Failed to submit review')
-          return
-        }
-
-        await reviewsApi.getReviews()
-      } catch (error) {
-        console.error('Error:', error)
+    try {
+      const reviewData: Omit<Review, 'datePosted'> = {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        rating: parseInt(form.rating),
+        comments: form.comments,
+        gameDifficulty: getDifficultyLevel(),
+        moves: Math.floor(moves / 2),
       }
-    })()
+
+      const response = await reviewsApi.createReview(reviewData)
+
+      if (response.error) {
+        console.error('Failed to submit review')
+        return
+      }
+
+      await reviewsApi.getReviews()
+    } catch (error) {
+      console.error('Error:', error)
+    }
+
     setForm({
       firstName: '',
       lastName: '',
@@ -126,7 +126,7 @@ export default function GameControl({
         />
       </div>
 
-      <span className="moves">Moves: {Math.floor(moves)}</span>
+      <span className="moves">Moves: {Math.floor(moves / 2)}</span>
 
       {isResultsModalReady && (
         <Modal centered show={showModal()}>

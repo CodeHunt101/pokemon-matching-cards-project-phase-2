@@ -1,5 +1,5 @@
-import { Navbar, Container, Nav } from "react-bootstrap"
-import { NavLink } from "react-router"
+import { Navbar, Container, Nav } from 'react-bootstrap'
+import { NavLink } from 'react-router'
 
 export default function Menu() {
   return (

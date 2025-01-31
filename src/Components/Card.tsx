@@ -1,11 +1,11 @@
-import React from "react"
+import React from 'react'
 
 type CardProps = {
   pokemon: string
   index: number
   handleClick: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number | ConcatArray<never>
+    index: number
   ) => void
   isCardOpen: boolean
   disableCardIndicator: number
@@ -25,7 +25,7 @@ export default function Card({
       className="card"
     >
       <img
-        className={isCardOpen ? "open" : "hidden"}
+        className={isCardOpen ? 'open' : 'hidden'}
         src={pokemon}
         alt={pokemon}
       ></img>

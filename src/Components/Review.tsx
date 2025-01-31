@@ -1,5 +1,5 @@
-import { Card as BtpCard } from "react-bootstrap"
-import { generateStars } from "../Helpers"
+import { Card } from 'react-bootstrap'
+import { generateStars } from '../Helpers'
 
 type ReviewProps = {
   review: {
@@ -15,32 +15,32 @@ type ReviewProps = {
 
 export default function Review({ review }: ReviewProps) {
   return (
-    <>
-      <BtpCard
-        bg="Secondary"
-        text="dark"
-        style={{ width: "18rem" }}
-        className="mb-2"
-      >
-        <BtpCard.Header>
-          <i className="fas fa-child"></i>{" "}
-          <b>
-            {review.firstName + " " + review.lastName}
-            <br />
-            {new Date(review.datePosted).toLocaleString()}
-          </b>
-        </BtpCard.Header>
-        <BtpCard.Body>
-          <BtpCard.Title>{generateStars()[review.rating as keyof typeof generateStars]}</BtpCard.Title>
-          <BtpCard.Text>
-            {review.comments}
-            <br />
-            <strong>Difficulty: {review.gameDifficulty}</strong>
-            <br />
-            <strong>Moves: {review.moves}</strong>
-          </BtpCard.Text>
-        </BtpCard.Body>
-      </BtpCard>
-    </>
+    <Card
+      bg="Secondary"
+      text="dark"
+      style={{ width: '18rem' }}
+      className="mb-2"
+    >
+      <Card.Header>
+        <i className="fas fa-child"></i>{' '}
+        <b>
+          {review.firstName + ' ' + review.lastName}
+          <br />
+          {new Date(review.datePosted).toLocaleString()}
+        </b>
+      </Card.Header>
+      <Card.Body>
+        <Card.Title>
+          {generateStars()[review.rating as keyof typeof generateStars]}
+        </Card.Title>
+        <Card.Text>
+          {review.comments}
+          <br />
+          <strong>Difficulty: {review.gameDifficulty}</strong>
+          <br />
+          <strong>Moves: {review.moves}</strong>
+        </Card.Text>
+      </Card.Body>
+    </Card>
   )
 }
