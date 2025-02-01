@@ -1,8 +1,9 @@
+import { ChangeEvent } from 'react'
 import { Form, FloatingLabel } from 'react-bootstrap'
 
 type ReviewsFilterProps = {
-  handleCheckboxChange: (e: { target: { checked: any } }) => void
-  handleStarsFilter: (e: any) => void
+  handleCheckboxChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleStarsFilter: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
 export default function ReviewsFilter({

@@ -1,19 +1,23 @@
 import { Card } from 'react-bootstrap'
+import { StarsMap } from '../types/types'
 import { generateStars } from '../Helpers'
 
+type ReviewType = {
+  firstName: string
+  lastName: string
+  rating: number
+  comments: string
+  gameDifficulty: string
+  datePosted: number
+  moves: number
+}
+
 type ReviewProps = {
-  review: {
-    firstName: string
-    lastName: string
-    rating: number
-    comments: string
-    gameDifficulty: string
-    datePosted: number
-    moves: number
-  }
+  review: ReviewType
 }
 
 export default function Review({ review }: ReviewProps) {
+  const starsMap: StarsMap = generateStars()
   return (
     <Card
       bg="Secondary"
@@ -30,9 +34,7 @@ export default function Review({ review }: ReviewProps) {
         </b>
       </Card.Header>
       <Card.Body>
-        <Card.Title>
-          {generateStars()[review.rating as keyof typeof generateStars]}
-        </Card.Title>
+        <Card.Title>{starsMap[review.rating as keyof StarsMap]}</Card.Title>
         <Card.Text>
           {review.comments}
           <br />

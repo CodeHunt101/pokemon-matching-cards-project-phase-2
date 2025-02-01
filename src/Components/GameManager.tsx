@@ -113,8 +113,6 @@ export default function GameManager() {
     setDeckSize(newDeckSize)
   }
 
-  console.log(pokemons[0])
-
   return (
     <>
       {error && <div className="error">{error}</div>}

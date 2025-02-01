@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { reviewsApi } from '../api/services'
 import { Review } from '../types/types'
@@ -7,7 +7,7 @@ type GameControlProps = {
   moves: number
   isCardOpen: boolean[]
   restartGame: () => void
-  handleGameDifficulty: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleGameDifficulty: (event: ChangeEvent<HTMLInputElement>) => void
   deckSize: number
 }
 
@@ -31,15 +31,15 @@ export default function GameControl({
     return isCardOpen.find((card) => !card) === undefined
   }
 
-  function handleFormInfo(e: any) {
-    const target = e.target as HTMLTextAreaElement
+  function handleFormInfo(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    const target = e.target
     setForm({
       ...form,
       [target.name]: target.value,
     })
   }
 
-  const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitReview = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsResultsModalReady(false)
     const getDifficultyLevel = (): string => {

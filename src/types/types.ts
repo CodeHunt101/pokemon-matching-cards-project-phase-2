@@ -1,3 +1,5 @@
+import { JSX } from 'react'
+
 export type Review = {
   firstName: string
   lastName: string
@@ -28,3 +30,6 @@ export type PokemonSprite = {
     }
   }
 }
+
+export type StarsKey = 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5
+export type StarsMap = Record<StarsKey, JSX.Element[]>

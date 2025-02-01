@@ -22,7 +22,7 @@ export default function Deck({
   const renderCards = () =>
     pokemons.map((pokemon, idx) => (
       <Card
-        key={idx}
+        key={`${pokemon.id}-${idx}`}
         index={idx}
         pokemon={pokemon.spriteUrl}
         handleClick={handleClick}
