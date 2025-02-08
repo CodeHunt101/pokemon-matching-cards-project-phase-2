@@ -8,7 +8,7 @@ export default function Header() {
       </a>
       <div className="logo">
         <img
-          src={process.env.PUBLIC_URL + '/pokemon-logo.svg'}
+          src={import.meta.env.BASE_URL + 'pokemon-logo.svg'}
           alt="The international Pokemon logo"
           width="269.47"
           height="98.81"
