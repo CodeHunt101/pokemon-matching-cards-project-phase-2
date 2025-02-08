@@ -95,7 +95,7 @@ export default function GameControl({
 
       <div
         className="difficulty-level"
-        onChange={(e) => {
+        onChange={(_e) => {
           setIsResultsModalReady(true)
         }}
       >
