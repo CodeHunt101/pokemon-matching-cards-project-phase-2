@@ -1,6 +1,11 @@
 import { JSX } from 'react'
 import { StarsMap } from './types/types'
 
+/**
+ * The Fisher-Yates shuffle algorithm. This algorithm works by iterating through the array one element at a time, swapping the current element with a randomly selected element from the current index to the end of the array. This results in a randomly shuffled array.
+ * @param array The array to shuffle
+ * @returns The shuffled array
+ */
 export default function shuffleArray(array: number[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -21,6 +26,17 @@ export function getPokemonIdFromImgUrl(
   }
 }
 
+/**
+ * Creates an array of JSX elements representing stars. The elements are
+ * `<i>` tags with the given `iconClass` and `className`. The `key` property
+ * of each element is set to `startKey + idx`, where `idx` is the index of the
+ * element in the array.
+ * @param count The number of stars to create
+ * @param iconClass The class name for the `<i>` tag representing a star
+ * @param className The class name to add to each star element
+ * @param startKey The starting number for the `key` property of each element
+ * @returns An array of JSX elements representing stars
+ */
 function createStars(
   count: number,
   iconClass: string,
@@ -32,6 +48,11 @@ function createStars(
   ))
 }
 
+/**
+ * Generates a StarsMap, which is an object mapping numbers to arrays of JSX elements representing stars. The keys are the numbers 0 through 5, as well as 0.5, 1.5, 2.5, 3.5, and 4.5. The values are the arrays of JSX elements representing stars. The `className` parameter is added to each element in the arrays.
+ * @param className The class name to add to each star element
+ * @returns The StarsMap
+ */
 export function generateStars(className: string = ''): StarsMap {
   return {
     0: createStars(5, 'far fa-star', className),

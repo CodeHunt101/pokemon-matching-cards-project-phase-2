@@ -58,6 +58,20 @@ export default function GameManager() {
     setPokemons(pokeImageUrls)
   }
 
+/**
+ * Handles the click event on a card in the game. 
+ * Prevents further interaction if the cards are being evaluated or if the card is already open. 
+ * Increments the move count and locks the board during card evaluation. 
+ * Updates the state of the selected card to open, and adds it to the list of selected pairs. 
+ * If two cards are selected, checks for a match:
+ * - If matched, keeps the cards open.
+ * - If not matched, flips both cards back after a delay.
+ * Unlocks the board after evaluation.
+ * 
+ * @param e - The mouse event triggered by clicking a card.
+ * @param index - The index of the clicked card in the deck.
+ */
+
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
