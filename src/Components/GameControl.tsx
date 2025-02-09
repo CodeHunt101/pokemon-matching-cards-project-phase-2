@@ -31,7 +31,9 @@ export default function GameControl({
     return isCardOpen.find((card) => !card) === undefined
   }
 
-  function handleFormInfo(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+  function handleFormInfo(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) {
     const target = e.target
     setForm({
       ...form,
@@ -84,6 +86,7 @@ export default function GameControl({
   return (
     <div className="game-stats">
       <span
+        data-testid="restart-icon"
         onClick={() => {
           restartGame()
           setIsResultsModalReady(true)

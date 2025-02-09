@@ -32,6 +32,17 @@ To install the game, follow these steps:
 2. Install the dependencies using npm: `npm install`
 3. Start the game using npm: `npm start`
 
+## Testing
+
+This project uses Vitest along with React Testing Library to ensure that the game functions as expected. Tests cover key aspects such as:
+
+- **Component Rendering**: Ensuring that all React components render correctly.
+- **Game Mechanics**: Verifying the card flipping and matching logic.
+- **Game Statistics**: Tracking move counts and validating difficulty settings.
+- **Review System**: Testing review submissions and data handling.
+
+To run the tests, execute the following command: `npm run test`
+
 ## Acknowledgments
 
 * **Pokémon API**: The Pokémon API used in this game is provided by [PokéAPI](https://pokeapi.co/).

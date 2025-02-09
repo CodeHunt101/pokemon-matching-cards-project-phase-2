@@ -1,5 +1,12 @@
 {
   "name": "pokemon_matching_cards_project",
+  "description": "A simple game to match cards",
+  "repository": "https://github.com/CodeHunt101/pokemon-matching-cards-project-phase-2",
+  "author": {
+    "name": "Harold Torres Marino",
+    "email": "haroldtm55@gmail.com",
+    "url": "https://github.com/codehunt101"
+  },
   "homepage": ".",
   "version": "0.1.0",
   "private": true,
@@ -17,21 +24,23 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "build": "vite build",
-    "serve": "vite preview",
-    "test": "vitest"
+    "serve": "vite preview --host",
+    "test": "vitest",
+    "test-coverage": "vitest --coverage"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
+    "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^3.0.5",
     "concurrently": "^9.1.2",
     "gh-pages": "^3.2.3",
+    "jsdom": "^26.0.0",
     "json-server": "^1.0.0-beta.3",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
-    "vitest": "^1.2.2"
+    "vitest": "^3.0.5"
   }
 }
